@@ -1,0 +1,36 @@
+<ion-view view-title="状态" hm-swipe-left="switchRight()" hm-swipe-right="switchLeft()">
+  <ion-nav-buttons side="left">
+  <a class="button button-clear icon ion-navicon" menu-toggle="left"></a>
+  </ion-nav-buttons>
+  <ion-content class="padding">
+    <div class="list card">
+      <div class="item item-divider" ng-click="alert1()">Recent Updates</div>
+      <div class="item item-body">
+        <div>
+          There is a fire in <b>sector 3</b>
+        </div>
+      </div>
+    </div>
+    <div class="list card">
+      <div class="item item-divider" ng-click="alert2()">Health</div>
+      <div class="item item-body">
+        <div>
+          You ate an apple today!
+          {{motion}}
+          {{version}}
+        </div>
+      </div>
+    </div>
+    <div class="list card">
+      <div class="item item-divider" ng-click="vibrate()">Upcoming</div>
+      <div class="item item-body">
+        <div>
+          You have <b>29</b> meetings on your calendar tomorrow.
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>
+
+
+  

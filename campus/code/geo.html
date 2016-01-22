@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+    <meta http-equiv="Content-type" name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width">
+
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css">
+	<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.2"></script>
+	
+	<script type="text/javascript">
+	    
+        function initialize() {
+			var mp = new BMap.Map('main4Content');
+			
+			var point = new BMap.Point(116.404, 39.915);  
+			mp.centerAndZoom(point, 15);  
+			
+			var marker = new BMap.Marker(point);        // 创建标注  
+			mp.addOverlay(marker);                     // 将标注添加到地图中
+	   
+		}
+	
+		function loadScript() {
+			var script = document.createElement("script");
+	 		script.src = "http://api.map.baidu.com/api?v=1.2&callback=initialize";
+			document.body.appendChild(script);
+		}
+	
+		window.onload = loadScript;
+
+    </script>
+</head>
+<body>
+
+    <div data-role="header" data-position="fixed">
+			<h1>地图定位</h1>
+	</div>
+	<div data-role="content" id="main4Content" style="width:100%;height:420px">
+	
+	</div>
+
+	<div data-role="footer" data-position="fixed">
+		<div data-role="navbar">
+			<ul>
+				<li><a href="main.html" data-icon="home" rel="external">校园</a></li>
+				<li><a href="message.html" data-icon="info" rel="external">资讯</a></li>
+				<li><a href="#" data-icon="search" class="ui-btn-active">地图</a></li>
+				<li><a href="feedback.html" data-icon="star" rel="external">反馈</a></li>
+			</ul>
+		</div>
+	</div>
+
+</body>
+
+</html>

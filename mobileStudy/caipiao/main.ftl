@@ -13,8 +13,8 @@
     <meta name="keywords" content="彩票，福彩，体彩，竞技彩，彩票中奖，购买彩票，网上购彩，网易彩票" />
     <meta name="description" content="网易彩票是最值得信赖的专业彩票网站,为彩民提供双色球,大乐透,3D,11选5,足彩,竞彩,北单等众多彩种的彩票代购、合买、开奖等服务，中奖福地，买彩票首选！" />
 	<link rel="stylesheet/less" href="./main.less">
-	<script src="../../source/less-2.5.3.min.js"></script>
-	<script src="../../source/jquery-1.11.3.min.js"></script>
+	<script src="../../.lib/less-2.5.3.min.js"></script>
+	<script src="../../.lib/jquery-1.11.3.min.js"></script>
 	<script src="./main.js"></script>
     <title>模拟彩票</title>
 </head>

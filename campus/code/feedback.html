@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+    <meta http-equiv="Content-type" name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width">
+
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css">
+	<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.2"></script>
+	<script type="text/javascript">
+
+    </script>
+</head>
+<body>
+<div data-role="page">
+	<div data-role="header" data-position="fixed">
+		<h1>信息反馈</h1>
+	</div>
+	<div data-role="content">
+		<form method="post" action="demoform.asp">
+		    <div data-role="fieldcontain">
+		    	<label for="fullname">全名：</label>
+	    	    <input type="text" name="fullname" id="fullname">
+
+		        <fieldset data-role="controlgroup" data-type="horizontal">
+		            <legend>请选择您的性别：</legend>
+		            <label for="male">男性</label>
+		            <input type="radio" name="gender" id="male" value="male">
+		            <label for="female">女性</label>
+		            <input type="radio" name="gender" id="female" value="female">	
+				</fieldset>
+				
+	    	    <label for="bday">生日：</label>
+	    	    <input type="date" name="bday" id="bday">
+				
+	    	    <label for="email">电邮：</label>
+	    	    <input type="email" name="email" id="email" placeholder="您的邮件地址..">
+		        
+		        <fieldset data-role="fieldcontain">
+		            <label for="day">选择天</label>
+		            <select name="day" id="day">
+		        		<optgroup label="工作日">
+			                <option value="mon">星期一</option>
+			                <option value="tue">星期二</option>
+			                <option value="wed">星期三</option>
+			                <option value="thu">星期四</option>
+			                <option value="fri">星期五</option>
+		        		</optgroup>
+		        		<optgroup label="周末">
+			                <option value="sat">星期六</option>
+			                <option value="sun">星期日</option>
+		        		</optgroup>
+		            </select>
+		        </fieldset>
+				
+				<fieldset data-role="fieldcontain">
+				   <label for="play">选择您喜欢的运动：</label>
+				   <select name="play" id="play" multiple="multiple" data-native-menu="false">
+						<option>运动</option>
+						<option value="baskb">篮球</option>
+						<option value="footb">足球</option>
+						<option value="tatls">乒乓球</option>
+						<option value="swim">游泳</option>
+						<option value="hiking">远行</option>
+						<option value="running">跑步</option>
+				   </select>
+				</fieldset>
+				
+				<label for="points">您给我们的评分是:</label>
+				<input type="range" data-hightlight="true" name="points" id="points" value="10" min="0" max="10">
+
+				<fieldset data-role="fieldcontain">
+				<label for="switch">是否订购我们推送的信息（free~）：</label>
+		        <select name="switch" id="switch" data-role="slider">
+		            <option value="on" >否</option>
+		            <option value="off" selected>是</option>
+		        </select>
+		        </fieldset>
+		    </div>
+		    <input type="submit" data-inline="true" value="提交">
+		</form>
+	</div>
+	<div data-role="footer" data-position="fixed">
+		<div data-role="navbar">
+			<ul>
+				<li><a href="main.html" data-icon="home" rel="external">校园</a></li>
+				<li><a href="message.html" data-icon="info" rel="external">资讯</a></li>
+				<li><a href="geo.html" data-icon="search" rel="external">地图</a></li>
+				<li><a href="#" data-icon="star" class="ui-btn-active">反馈</a></li>
+			</ul>
+		</div>
+	</div>
+
+</body>
+
+</html>

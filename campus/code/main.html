@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+    <meta http-equiv="Content-type" name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width">
+
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css">
+	<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+	
+</head>
+<body>
+<div data-role="page" id="home">
+	<div data-role="header" data-position="fixed">
+		<h1>校园生活</h1>
+	</div>
+	<div data-role="content" style="text-align: center">
+		<p style="font-weight: bold;">学校功能九宫格</p>
+		<div class="ui-grid-b">
+			<div class="ui-block-a"><img src="../image/01.png" with="60px" /><p>校园生活</p></div>
+			<div class="ui-block-b"><img src="../image/02.png" with="60px" /><p>联系信息</p></div>
+			<div class="ui-block-c"><img src="../image/03.png" with="60px" /><p>紧急情况</p></div>
+		</div>
+		<div class="ui-grid-b">
+			<div class="ui-block-a"><img src="../image/05.png" with="60px" /><p>邮箱</p></div>
+			<div class="ui-block-b"><img src="../image/04.png" with="60px" /><p>我的信息</p></div>
+			<div class="ui-block-c"><a href="#setting" data-transition="pop"><img src="../image/06.png" with="60px" /></a><p>设置</p></div>
+		</div>
+		<div class="ui-grid-b">
+			<div class="ui-block-a"><img src="../image/07.png" with="60px" /><p>新闻</p></div>
+			<div class="ui-block-b"><img src="../image/08.png" with="60px" /><p>运动</p></div>
+			<div class="ui-block-c"><img src="../image/09.png" with="60px" /><p>天气</p></div>
+		</div>
+	</div>
+	<div data-role="footer" data-position="fixed">
+		<div data-role="navbar">
+			<ul>
+				<li><a href="#" data-icon="home" class="ui-btn-active">校园</a></li>
+				<li><a href="message.html" data-icon="info" rel="external">资讯</a></li>
+				<li><a href="geo.html" data-icon="search" rel="external">地图</a></li>
+				<li><a href="feedback.html" data-icon="star" rel="external">反馈</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div data-role="page" id="setting" data-position="fixed">
+	<div data-role="header" data-position="fixed">
+		<h1>系统设置</h1>
+	</div>
+	<div data-role="content" id="main3Content" >
+		
+		<ul data-role="listview" data-split-icon="gear" data-split-theme="d">
+			<li>
+				<a href="#">
+					<img src="../image/s1.png" />
+					<h3>设置</h3>
+					<p>设置系统运行参数</p>
+				</a>
+				<a href="#" data-rel="dialog" data-transition="slideup">动作</a>
+			</li>
+			<li>
+				<a href="#">
+					<img src="../image/s2.png" />
+					<h3>更新</h3>
+					<p>更新系统表单</p>
+				</a>
+				<a href="#" data-rel="dialog" data-transition="slideup">动作</a>
+			</li>
+			<li>
+				<a href="#">
+					<img src="../image/s3.png" />
+					<h3>帮助</h3>
+					<p>查看系统帮助信息</p>
+				</a>
+				<a href="#" data-rel="dialog" data-transition="slideup">动作</a>
+			</li>
+			<li>
+				<a href="index.html"  rel="external">
+					<img src="../image/s4.png" />
+					<h3>重新登录</h3>
+					<p>返回登录界面重新登录</p>
+				</a>
+				<a href="index.html" data-rel="dialog" data-transition="slideup"  rel="external">动作</a>
+			</li>
+		</ul>
+	</div>
+	<div data-role="footer" data-position="fixed">
+		<div data-role="navbar">
+			<ul>
+				<li><a href="#home" data-icon="check" data-transition="slideup">确认</a></li>
+				<li><a href="#home" data-icon="back" data-transition="slidedown">返回</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+</body>
+</html>

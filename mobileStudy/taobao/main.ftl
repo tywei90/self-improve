@@ -10,10 +10,10 @@
 	<link href="//gw.alicdn.com/tps/i2/TB1nmqyFFXXXXcQbFXXE5jB3XXX-114-114.png" rel="apple-touch-icon-precomposed">
 	<link href="//gw.alicdn.com/tps/i2/TB1nmqyFFXXXXcQbFXXE5jB3XXX-114-114.png" rel="Shortcut Icon" type="image/x-icon">
 	<link rel="stylesheet/less" href="./main.less">
-<#-- 	<link rel="stylesheet" href="../../source/jquery.mobile-1.4.5.min.css"> -->
-	<script src="../../source/less-2.5.3.min.js"></script>
-	<script src="../../source/jquery-1.11.3.min.js"></script>
-<#-- 	<script src="../../source/jquery.mobile-1.4.5.js"></script> -->
+<#-- 	<link rel="stylesheet" href="../../.lib/jquery.mobile-1.4.5.min.css"> -->
+	<script src="../../.lib/less-2.5.3.min.js"></script>
+	<script src="../../.lib/jquery-1.11.3.min.js"></script>
+<#-- 	<script src="../../.lib/jquery.mobile-1.4.5.js"></script> -->
 	<script src="./main.js"></script>
 
 	<title>模拟淘宝</title>

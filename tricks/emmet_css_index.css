@@ -1,0 +1,46 @@
+{
+	w100
+	width: 100px;
+}
+
+{
+	h10p+m5e
+	height: 10%;
+	margin: 5em;
+}
+
+ @f
+  @font-face {
+  	font-family:;
+  	src:url();
+  }
+
+  @f+
+  @font-face {
+  	font-family: 'FontName';
+  	src: url('FileName.eot');
+  	src: url('FileName.eot?#iefix') format('embedded-opentype'),
+  		 url('FileName.woff') format('woff'),
+  		 url('FileName.ttf') format('truetype'),
+  		 url('FileName.svg#FontName') format('svg');
+  	font-style: normal;
+  	font-weight: normal;
+  }
+
+{
+  	ov:h、ov-h、ovh和oh
+  overflow: hidden;
+}
+
+trs
+-webkit-transition: prop time;
+-o-transition: prop time;
+transition: prop time;
+
+{
+lg(left, #fff 50%, #000)
+
+background-image: -webkit-linear-gradient(left, #fff 50%, #000);
+background-image: -o-linear-gradient(left, #fff 50%, #000);
+background-image: linear-gradient(to right, #fff 50%, #000);
+}
