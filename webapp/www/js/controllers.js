@@ -1,7 +1,9 @@
 angular.module('starter.controllers', [])
 
+//根作用域方法和属性的定义
 .run(['$rootScope', 'Chats', function($rootScope, Chats, $ionicModal) {
   $rootScope.newChats = Chats.all();
+  //刷新红色徽章的消息值
   $rootScope.refreshBadge = function(striples) {
     $rootScope.$watch(striples, function(newValue, oldValue) {
       $rootScope.badgeNum = 0;
@@ -13,11 +15,14 @@ angular.module('starter.controllers', [])
       };
     })
   };
-  $rootScope.theme = "royal";
   $rootScope.refreshBadge($rootScope.newChats);
+  //主题
+  $rootScope.theme = "royal";
+  //打开app内嵌浏览器的方法定义
   $rootScope.openURL = function(url) {
     window.open(url, '_blank', 'location=yes');
   };
+  //模拟后台微信消息假数据
   $rootScope.addChats = [{
     id: 4,
     name: '刘健',
@@ -129,69 +134,7 @@ angular.module('starter.controllers', [])
   }];
 }])
 
-.controller('HomeCtrl', function($state, $scope, $timeout) {
-  $scope.switchRight = function() {
-    $state.go('tab.dash')
-  };
-  $scope.sites = [{
-    srcL: "img/05.jpg",
-    introL: '台湾环岛8日7晚跟团游(3钻)·1晚住圆山 爸妈放心游A线 泡汤享乐',
-    priceL: 5080,
-    srcR: "img/06.jpg",
-    introR: '泰国清迈6日4晚自由行·吉祥直飞 春节/寒假畅销产品',
-    priceR: 2086,
-  }, {
-    srcL: "img/07.jpg",
-    introL: '日本东京+箱根+京都+大阪6日5晚跟团游(4钻)·2天自由 新宿连住 温泉 神户牛',
-    priceL: 6999,
-    srcR: "img/08.jpg",
-    introR: '韩国济州岛+首尔5日4晚跟团游(4钻)·上海名牌 三飞纯玩好评如潮 旅游狂欢月',
-    priceR: 3799,
-  }];
-  $scope.addSites = [{
-    srcL: "img/09.jpg",
-    introL: '马尔代夫四季兰达吉拉瓦鲁岛Landaa Giraavaru自由行(5钻)·6日4晚 2沙2水 水飞上岛',
-    priceL: 19874,
-    srcR: "img/10.jpg",
-    introR: '法国尼斯+巴黎自由行·9日7晚 蔚蓝海岸',
-    priceR: 5743,
-  }, {
-    srcL: "img/11.jpg",
-    introL: '海南三亚6日5晚跟团游(5钻)·携程自研 五星度假世界 金牌纯玩+99升海景',
-    priceL: 3400,
-    srcR: "img/12.jpg",
-    introR: '鼓浪屿+厦门4日自由行·双飞 1晚鼓浪屿+2晚厦门 0元接机',
-    priceR: 626,
-  }, {
-    srcL: "img/13.jpg",
-    introL: '丽江+香格里拉+玉龙雪山5日4晚跟团游(5钻)·[高端特色客栈]避寒真纯玩&暖阳礼包&减1000',
-    priceL: 3548,
-    srcR: "img/14.jpg",
-    introR: '北京5日跟团游(5钻)·出游首选好评如潮 5星万豪/香格里拉/威斯汀',
-    priceR: 3446,
-  }, {
-    srcL: "img/15.jpg",
-    introL: '成都+九寨沟+乐山+峨眉山7日6晚跟团游(4钻)·品质全景 THEME西姆2.0+特色餐+晚会 特卖汇',
-    priceL: 2403,
-    srcR: "img/16.jpg",
-    introR: '桂林+漓江+阳朔+龙脊梯田4日3晚跟团游(4钻)·【私家定制】总统之旅 一价全包 春节热卖团',
-    priceR: 2269,
-  }];
-  $scope.load_more = function() {
-    $timeout(function() {
-      $scope.$apply(function() {
-        if ($scope.addSites.length > 0) {
-          var Arr = $scope.addSites.shift();
-          // console.log($scope.addSites);
-          $scope.sites.push(Arr);
-          // console.log($scope.sites);
-        }
-      })
-    }, 400);
-    $scope.$broadcast("scroll.infiniteScrollComplete");
-  };
-})
-
+//侧边栏controller定义
 .controller('sideMenu', function($scope, $rootScope, $ionicModal, $ionicSideMenuDelegate, $ionicPopup) {
   $ionicModal.fromTemplateUrl("my-modal.html", {
     scope: $scope,
@@ -263,6 +206,73 @@ angular.module('starter.controllers', [])
   };
 })
 
+//主页菜单controller定义
+.controller('HomeCtrl', function($state, $scope, $timeout) {
+  //滑动手势切换页面
+  $scope.switchRight = function() {
+    $state.go('tab.dash')
+  };
+  $scope.sites = [{
+    srcL: "img/05.jpg",
+    introL: '台湾环岛8日7晚跟团游(3钻)·1晚住圆山 爸妈放心游A线 泡汤享乐',
+    priceL: 5080,
+    srcR: "img/06.jpg",
+    introR: '泰国清迈6日4晚自由行·吉祥直飞 春节/寒假畅销产品',
+    priceR: 2086,
+  }, {
+    srcL: "img/07.jpg",
+    introL: '日本东京+箱根+京都+大阪6日5晚跟团游(4钻)·2天自由 新宿连住 温泉 神户牛',
+    priceL: 6999,
+    srcR: "img/08.jpg",
+    introR: '韩国济州岛+首尔5日4晚跟团游(4钻)·上海名牌 三飞纯玩好评如潮 旅游狂欢月',
+    priceR: 3799,
+  }];
+  $scope.addSites = [{
+    srcL: "img/09.jpg",
+    introL: '马尔代夫四季兰达吉拉瓦鲁岛Landaa Giraavaru自由行(5钻)·6日4晚 2沙2水 水飞上岛',
+    priceL: 19874,
+    srcR: "img/10.jpg",
+    introR: '法国尼斯+巴黎自由行·9日7晚 蔚蓝海岸',
+    priceR: 5743,
+  }, {
+    srcL: "img/11.jpg",
+    introL: '海南三亚6日5晚跟团游(5钻)·携程自研 五星度假世界 金牌纯玩+99升海景',
+    priceL: 3400,
+    srcR: "img/12.jpg",
+    introR: '鼓浪屿+厦门4日自由行·双飞 1晚鼓浪屿+2晚厦门 0元接机',
+    priceR: 626,
+  }, {
+    srcL: "img/13.jpg",
+    introL: '丽江+香格里拉+玉龙雪山5日4晚跟团游(5钻)·[高端特色客栈]避寒真纯玩&暖阳礼包&减1000',
+    priceL: 3548,
+    srcR: "img/14.jpg",
+    introR: '北京5日跟团游(5钻)·出游首选好评如潮 5星万豪/香格里拉/威斯汀',
+    priceR: 3446,
+  }, {
+    srcL: "img/15.jpg",
+    introL: '成都+九寨沟+乐山+峨眉山7日6晚跟团游(4钻)·品质全景 THEME西姆2.0+特色餐+晚会 特卖汇',
+    priceL: 2403,
+    srcR: "img/16.jpg",
+    introR: '桂林+漓江+阳朔+龙脊梯田4日3晚跟团游(4钻)·【私家定制】总统之旅 一价全包 春节热卖团',
+    priceR: 2269,
+  }];
+  //上拉刷新
+  $scope.load_more = function() {
+    $timeout(function() {
+      $scope.$apply(function() {
+        if ($scope.addSites.length > 0) {
+          var Arr = $scope.addSites.shift();
+          // console.log($scope.addSites);
+          $scope.sites.push(Arr);
+          // console.log($scope.sites);
+        }
+      })
+    }, 400);
+    $scope.$broadcast("scroll.infiniteScrollComplete");
+  };
+})
+
+//状态菜单controller定义
 .controller('DashCtrl', function($state, $scope, $cordovaDevice, $cordovaVibration, $cordovaDeviceMotion, $cordovaDialogs) {
   $scope.switchRight = function() {
     $state.go('tab.chats')
@@ -271,29 +281,29 @@ angular.module('starter.controllers', [])
     $state.go('tab.home')
   };
   document.addEventListener("deviceready", function() {
-    $scope.alert1 = function() {
-      navigator.notification.alert(
-        'You are the winner!', // 显示信息
-        'Game Over', // 标题
-        'Done' // 按钮名称
-      );
-    }
-    $scope.alert2 = function() {
-      $cordovaDialogs.alert('这是小米手机', '温馨提示', '返回')
+    $scope.alert = function() {
+      $cordovaDialogs.alert('这是小米2S手机', '温馨提示', '返回')
         .then(function() {
           // callback success
         });
     };
-    $scope.version = "版本号：" + $cordovaDevice.getVersion();
-    $cordovaDeviceMotion.getCurrentAcceleration().then(function(result) {
-      var X = result.x;
-      var Y = result.y;
-      var Z = result.z;
-      var timeStamp = result.timestamp;
-      $scope.motion = "时间戳：" + "timeStamp" + "\n运动方向：" + "x:" + X + "y:" + Y + "z:" + Z;
-    }, function(err) {
-      // An error occurred. Show a message to the user
-    });
+    $scope.version = $cordovaDevice.getVersion();
+    var options = { frequency: 1000 };
+    var watch = $cordovaDeviceMotion.watchAcceleration(options);
+        watch.then(
+          null,
+          function(error) {
+          // An error occurred
+          },
+          function(result) {
+            $scope.timeStamp = new Date(parseInt(result.timestamp)).toLocaleString().replace(/年|月/g, "-").replace(/日/g, " ");
+            $scope.X = (result.x).toString().substring(0, 4);
+            $scope.Y = (result.y).toString().substring(0, 4);
+            $scope.Z = (result.z).toString().substring(0, 4);
+          $scope.clearWatch = function() {
+            watch.clearWatch();
+          }
+        });
 
     // 震动两秒
     $scope.vibrate = function() {
@@ -303,6 +313,7 @@ angular.module('starter.controllers', [])
   }, false);
 })
 
+//微信菜单controller定义
 .controller('ChatsCtrl', function($state, $scope, $rootScope, Chats, $ionicActionSheet) {
   $scope.switchRight = function() {
     $state.go('tab.account')
@@ -499,6 +510,7 @@ angular.module('starter.controllers', [])
   }
 })
 
+//微信详情页controller定义
 .controller('ChatDetailCtrl', function($state, $rootScope, $scope, $stateParams, Chats) {
   $scope.chat = Chats.get($rootScope.newChats, $stateParams.chatId);
   $scope.switchLeft = function() {
@@ -506,6 +518,7 @@ angular.module('starter.controllers', [])
   };
 })
 
+//设置菜单controller定义
 .controller('AccountCtrl', function($state, $scope, $ionicPopup, $cordovaVibration, $cordovaNativeAudio, $timeout) {
   $scope.switchLeft = function() {
     $state.go('tab.chats')
