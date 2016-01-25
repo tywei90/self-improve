@@ -125,3 +125,6 @@ ion-slide img {
 .action-sheet-group .button:first-child{
 	border-top: 0!important;
 }
+.chats-list a.item-content{
+	overflow: visible!important;
+}

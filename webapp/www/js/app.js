@@ -24,7 +24,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 })
 
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, hammerDefaultOptsProvider) {
-  hammerDefaultOptsProvider.set({recognizers: [[Hammer.Tap, {time: 250}],[Hammer.Swipe, {time: 250}],[Hammer.Press, {time: 250}]]});
+  hammerDefaultOptsProvider.set({recognizers: [[Hammer.Tap, {time: 250}],[Hammer.Swipe, {time: 250}],[Hammer.Press, {time: 250}],[Hammer.Pan, {time: 250}]]});
   $ionicConfigProvider.platform.ios.tabs.style('standard'); 
   $ionicConfigProvider.platform.ios.tabs.position('bottom');
   $ionicConfigProvider.platform.android.tabs.style('standard');
