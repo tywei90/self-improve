@@ -1,8 +1,0 @@
-{
-	"name":"私有页面入口模块",
-	"main": "main.js",
-	"pack": {
-		"name": "main.js",
-		"exclude": ["base", "core"]
-	}
-}
