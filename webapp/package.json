@@ -25,6 +25,10 @@
     {
       "locator": "https://github.com/Telerik-Verified-Plugins/NativePageTransitions#0.5.5",
       "id": "com.telerik.plugins.nativepagetransitions"
+    },
+    {
+      "locator": "https://github.com/phonegap/phonegap-plugin-barcodescanner.git",
+      "id": "phonegap-plugin-barcodescanner"
     }
   ],
   "cordovaPlatforms": [

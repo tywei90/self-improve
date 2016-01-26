@@ -2,6 +2,9 @@
   <ion-nav-buttons side="left">
   <a class="button button-clear icon ion-navicon" menu-toggle="left"></a>
   </ion-nav-buttons>
+  <ion-nav-buttons side="right">
+  <a class="button button-clear icon ion-qr-scanner" ng-click="scan()"></a>
+  </ion-nav-buttons>
   <ion-content class="padding">
     <div class="list card">
       <div class="item item-divider item-calm" ng-click="alert()">点击弹窗</div>
@@ -25,7 +28,7 @@
         <div>
           调用手机设备信息
           <p>手机版本号：{{version}}</p>
-          <p>时间戳：{{timeStamp}}</p>
+          <p>当前时间：{{timeStamp}}</p>
           <p>运动方向：x:{{X}} y:{{Y}} z:{{Z}}</p>
         </div>
       </div>

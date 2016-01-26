@@ -273,7 +273,7 @@ angular.module('starter.controllers', [])
 })
 
 //状态菜单controller定义
-.controller('DashCtrl', function($state, $scope, $cordovaDevice, $cordovaVibration, $cordovaDeviceMotion, $cordovaDialogs) {
+.controller('DashCtrl', function($state, $scope, $rootScope, $cordovaDevice, $cordovaVibration, $cordovaDeviceMotion, $cordovaDialogs, $cordovaBarcodeScanner, $cordovaMedia) {
   $scope.switchRight = function() {
     $state.go('tab.chats')
   };
@@ -281,6 +281,23 @@ angular.module('starter.controllers', [])
     $state.go('tab.home')
   };
   document.addEventListener("deviceready", function() {
+    $scope.scan = function() {
+      $cordovaBarcodeScanner
+        .scan()
+        .then(function(result) {
+          if(result.cancelled == false){
+            $cordovaDialogs.confirm('网址：' + result.text, '扫描结果', ['打开','返回'])
+             .then(function(buttonIndex) {
+               var btnIndex = buttonIndex;
+               if(btnIndex == 1){
+                 $rootScope.openURL(result.text);
+               }
+             });
+          }
+        }, function(error) {
+          alert("Scanning failed: " + error);
+        });
+      };
     $scope.alert = function() {
       $cordovaDialogs.alert('这是小米2S手机', '温馨提示', '返回')
         .then(function() {
@@ -307,8 +324,11 @@ angular.module('starter.controllers', [])
 
     // 震动两秒
     $scope.vibrate = function() {
-      console.log("vibrate");
-      $cordovaVibration.vibrate(1000);
+      $scope.appdir = cordova.file.applicationDirectory;
+      $scope.cachdir = cordova.file.cacheDirectory;
+        // var media = $cordovaMedia.newMedia(src);
+        // media.play(); // Android
+      // $cordovaVibration.vibrate(1000);
     };
   }, false);
 })
