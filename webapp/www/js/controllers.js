@@ -497,6 +497,11 @@ angular.module('starter.controllers', [])
         $scope.deg = deg + (deltaX > 0 ? 90 : -90);
         // console.log($scope.deg);
         $(e.target).css({'transform': 'rotate('+$scope.deg+'deg)', "left": a + e.touches[0].pageX - c, "top": b + e.touches[0].pageY - d});
+        if(Math.pow(($scope.f - c), 2) + Math.pow(($scope.g - d), 2) >= 1000){
+          $(e.target).css('backgroundColor', '#0ECC3E');
+        }else{
+          $(e.target).css('backgroundColor', '#ef473a');
+        }
         break;
       case "touchend":
         // console.log($scope.f - c,$scope.g - d);
