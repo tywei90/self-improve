@@ -463,6 +463,7 @@ angular.module('starter.controllers', [])
   $scope.clientY = 10;
   $scope.dragStart = function(event){
     var e = event || window.event;
+        $(e.target).css({'transition': ' transform 0s', 'transform': 'rotate(720deg)'});
         $scope.pageX=e.touches[0].pageX; 
         $scope.pageY=e.touches[0].pageY;
   };
@@ -475,7 +476,7 @@ angular.module('starter.controllers', [])
     //z-index只对position为relative、absolute和fixed元素有效。
     //在实际开发中，div+css经常会碰到层级的问题
     // 其中有个很头痛的就是z-index控制层级时，老是发现z-index不起作用
-    // 老杨依据自己的经验，总结出以下步骤：
+    // 依据自己的经验，总结出以下步骤：
     // 1、判断被覆盖的层（想要置顶的层）的postion是否也为relative或者absolute
     // 2、如果1成立，则判断是否此层的z-index比误覆盖的层的z-index数值大
     // 3、如果2成立，判断是否此层的父级元素比误覆盖的层的z-index数值大
@@ -486,27 +487,36 @@ angular.module('starter.controllers', [])
     chat.zindex = 5;
     switch (e.type){
       case "touchmove":
-        $(e.target).css("left", a + e.touches[0].pageX - c) ; 
-        $(e.target).css("top", b + e.touches[0].pageY - d) ; 
+        // $(e.target).css("left", a + e.touches[0].pageX - c) ; 
+        // $(e.target).css("top", b + e.touches[0].pageY - d) ; 
         $scope.f = e.touches[0].pageX;
         $scope.g = e.touches[0].pageY;
+        var deltaX = $scope.f - c;
+        var deltaY = $scope.g - d;
+        var deg = Math.atan(deltaY/deltaX)*180/Math.PI;
+        $scope.deg = deg + (deltaX > 0 ? 90 : -90);
+        // console.log($scope.deg);
+        $(e.target).css({'transform': 'rotate('+$scope.deg+'deg)', "left": a + e.touches[0].pageX - c, "top": b + e.touches[0].pageY - d});
         break;
       case "touchend":
         // console.log($scope.f - c,$scope.g - d);
         if(Math.pow(($scope.f - c), 2) + Math.pow(($scope.g - d), 2) <= 1000){
           $(e.target).animate({left: a+"px", top: b+"px"}, 400);
+          $(e.target).css({'transition': ' transform 0.4s', 'transform': 'rotate(720deg)'});
           // 将红色徽章的父级元素z-index值重置
           chat.zindex = 2;
         }else{
+          $(e.target).css({'transition': ' transform 0.4s', 'transform': 'rotate(720deg)'});
           $(e.target).fadeOut(400, function(){
             //立即生效，注意apply作用！
             $scope.$apply(function() {
               chat.num = 0;
+              chat.state = "none";
               $rootScope.refreshBadge($scope.chats);
+              // 将红色徽章的父级元素z-index值重置
+              chat.zindex = 2;
             });
           });
-          // 将红色徽章的父级元素z-index值重置
-          chat.zindex = 2;
         };
         break;
     }

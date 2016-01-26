@@ -14,7 +14,7 @@
         <img ng-src="img/04.jpg">
       </ion-slide>
     </ion-slide-box>
-    <div class="core" hm-swipe-left="switchRight()">
+    <div class="core" on-swipe-left="switchRight()">
       <div class="row" style="height: 160px;z-index:9;">
         <div ng-init="deg1='0deg'" style="-webkit-transform: rotateX({{deg1}}) rotateY({{deg1}}) rotateZ({{deg1}});-webkit-transition:transform 1s;" ng-touchstart="deg1='180deg'" ng-touchend="deg1='0deg'" ng-click="openURL('http://m.ctrip.com/webapp/hotel/')" class="col calm-bg">酒店<i style="margin-top:5px;" class="icon ion-home"></i></div>
         <div ng-init="deg2='0deg'" style="-webkit-transform: rotate({{deg2}});-webkit-transition:transform 0.6s;" ng-touchstart="deg2='-360deg'" ng-touchend="deg2='0deg'" ng-click="openURL('http://m.ctrip.com/webapp/myctrip/')" class="col royal-bg"><i style="margin-bottom:10px; margin-top: 0;" class="icon ion-person"></i>我的携程</div>
