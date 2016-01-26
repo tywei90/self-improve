@@ -273,7 +273,7 @@ angular.module('starter.controllers', [])
 })
 
 //状态菜单controller定义
-.controller('DashCtrl', function($state, $scope, $rootScope, $cordovaDevice, $cordovaVibration, $cordovaDeviceMotion, $cordovaDialogs, $cordovaBarcodeScanner, $cordovaMedia) {
+.controller('DashCtrl', function($state, $scope, $rootScope, $cordovaDevice, $cordovaVibration, $cordovaDeviceMotion, $cordovaDialogs, $cordovaBarcodeScanner, $cordovaNativeAudio) {
   $scope.switchRight = function() {
     $state.go('tab.chats')
   };
@@ -322,13 +322,19 @@ angular.module('starter.controllers', [])
           }
         });
 
-    // 震动两秒
+    // 震动0.6秒
     $scope.vibrate = function() {
-      $scope.appdir = cordova.file.applicationDirectory;
-      $scope.cachdir = cordova.file.cacheDirectory;
-        // var media = $cordovaMedia.newMedia(src);
-        // media.play(); // Android
-      // $cordovaVibration.vibrate(1000);
+      $cordovaVibration.vibrate(600);
+    };
+    $cordovaNativeAudio
+      .preloadSimple('click', 'lib/audio/lbxx.mp3')
+      .then(function (msg) {
+        console.log(msg);
+      }, function (error) {
+        alert(error);
+      });
+    $scope.audio = function() {
+        $cordovaNativeAudio.play('click');
     };
   }, false);
 })
@@ -608,7 +614,7 @@ angular.module('starter.controllers', [])
 })
 
 //设置菜单controller定义
-.controller('AccountCtrl', function($state, $scope, $ionicPopup, $cordovaVibration, $cordovaNativeAudio, $timeout) {
+.controller('AccountCtrl', function($state, $scope, $ionicPopup, $cordovaVibration, $cordovaNativeAudio, $timeout, $cordovaMedia) {
   $scope.switchLeft = function() {
     $state.go('tab.chats')
   };
@@ -685,39 +691,25 @@ angular.module('starter.controllers', [])
     }
   };
   document.addEventListener("deviceready", function() {
-    // $cordovaNativeAudio
-    //   .preloadSimple('click', '../lib/audio/music.mp3')
-    //   .then(function (msg) {
-    //     console.log(msg);
-    //   }, function (error) {
-    //     alert(error);
-    //   });
-
-    // $cordovaNativeAudio
-    //   .preloadComplex('music', '../lib/audio/music.mp3', 1, 1)
-    //   .then(function (msg) {
-    //     console.log(msg);
-    //   }, function (error) {
-    //     console.error(error);
-    //   });
-
-    // $scope.play = function (value2) {
-    //   if(value2){
-    //     $cordovaNativeAudio.play('click');
-    //     $cordovaNativeAudio.loop('music');
-
-    //     // stop 'music' loop and unload
-    //     $timeout(function () {
-    //       $cordovaNativeAudio.stop('music');
-
-    //       $cordovaNativeAudio.unload('click');
-    //       $cordovaNativeAudio.unload('music');
-    //     }, 1000 * 10);
-    //   }
-    // };
+    $cordovaNativeAudio
+      .preloadSimple('toggle', 'lib/audio/apple.mp3')
+      .then(function (msg) {
+        console.log(msg);
+      }, function (error) {
+        alert(error);
+      });
+    $scope.play = function(value1) {
+      if (value1) {
+        $cordovaNativeAudio.play('toggle');
+      }else{
+        $cordovaNativeAudio.stop('toggle');
+      }
+    };
     $scope.vibrate = function(value2) {
       if (value2) {
-        $cordovaVibration.vibrate(600);
+        $cordovaVibration.vibrate(1000);
+      }else{
+        $cordovaVibration.vibrate(0);
       }
     };
   }, false);
