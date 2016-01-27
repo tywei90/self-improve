@@ -320,7 +320,7 @@ angular.module('starter.controllers', [])
 })
 
 //状态菜单controller定义
-.controller('DashCtrl', function($state, $scope, $rootScope, $cordovaDevice, $cordovaVibration, $cordovaDeviceMotion, $cordovaDialogs, $cordovaBarcodeScanner, $cordovaNativeAudio) {
+.controller('DashCtrl', function($state, $scope, $rootScope, $cordovaDevice, $cordovaVibration, $cordovaDeviceMotion, $cordovaDialogs, $cordovaBarcodeScanner, $cordovaNativeAudio, $ionicActionSheet) {
   $scope.switchRight = function() {
     $state.go('tab.chats')
   };
@@ -333,11 +333,17 @@ angular.module('starter.controllers', [])
         .scan()
         .then(function(result) {
           if(result.cancelled == false){
-            $cordovaDialogs.confirm('网址：' + result.text, '扫描结果', ['打开','返回'])
+            $cordovaDialogs.confirm('网址：' + result.text, '扫描结果', ['打开','复制'])
              .then(function(buttonIndex) {
                var btnIndex = buttonIndex;
                if(btnIndex == 1){
                  $rootScope.openURL(result.text);
+               }else if(btnIndex == 2){
+                  // window.clipboardData.setData("Text", result.text); 这个可以省略，该插件已经默认复制好了
+                  $cordovaDialogs.alert('复制成功！', '温馨提示：', '确定')
+                    .then(function() {
+                      // callback success
+                    });
                }
              });
           }
