@@ -135,7 +135,7 @@ angular.module('starter.controllers', [])
 }])
 
 //侧边栏controller定义
-.controller('sideMenu', function($scope, $rootScope, $ionicModal, $ionicSideMenuDelegate, $ionicPopup) {
+.controller('sideMenu', function($scope, $rootScope, $ionicModal, $ionicSideMenuDelegate, $ionicPopup, $cordovaDialogs, $cordovaCamera, $cordovaImagePicker) {
   $ionicModal.fromTemplateUrl("my-modal.html", {
     scope: $scope,
     animation: "slide-in-up"
@@ -154,6 +154,53 @@ angular.module('starter.controllers', [])
     $scope.modal.hide();
     $ionicSideMenuDelegate.toggleLeft();
   };
+  $scope.avatar = 'img/self.png';
+  document.addEventListener("deviceready", function() {
+    $scope.changeAvat = function(event){
+    $cordovaDialogs.confirm('请选择上传头像方式', '温馨提示：', ['照相机','图片库'])
+     .then(function(buttonIndex) {
+       var btnIndex = buttonIndex;
+       if(btnIndex == 1){
+         $scope.takePhoto();
+       }else if(btnIndex == 2){
+        $scope.pickAlbum();
+       };
+     });
+    };
+    $scope.takePhoto = function(){
+      var options = {
+        quality: 50,
+        destinationType: Camera.DestinationType.DATA_URL,
+        sourceType: Camera.PictureSourceType.CAMERA,
+        allowEdit: true,
+        encodingType: Camera.EncodingType.JPEG,
+        targetWidth: 65,
+        targetHeight: 65,
+        popoverOptions: CameraPopoverOptions,
+        saveToPhotoAlbum: false,
+        correctOrientation:true
+      };
+      $cordovaCamera.getPicture(options).then(function(imageData) {
+        $scope.avatar = "data:image/jpeg;base64," + imageData;
+      }, function(err) {
+        console.log(err);
+      });
+    };
+    $scope.pickAlbum = function(){
+      var options = {
+         maximumImagesCount: 1,
+         width: 65,
+         height: 65,
+         quality: 80
+        };
+        $cordovaImagePicker.getPictures(options)
+          .then(function (result) {
+            $scope.avatar = result[0];
+          }, function(error) {
+            alert(error);
+          });
+    };
+  }, false);
   $scope.showConfirm = function() {
     $ionicPopup.confirm({
       title: "温馨提示：",
@@ -177,7 +224,7 @@ angular.module('starter.controllers', [])
     if ($scope.newUser.account == "wty" && $scope.newUser.password == "123456" && $scope.newUser.validate == "g8pk") {
       $scope.isLogin = true;
       $scope.modal.hide();
-      $ionicSideMenuDelegate.toggleLeft();
+      $ionicSideMenuDelegate.toggleLeft(true);
     } else {
       $scope.isLogin = false;
     }

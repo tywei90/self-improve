@@ -97,7 +97,7 @@
       <ion-content>
         <div style="margin:0; border-bottom:1px solid #eee" class="list list-borderless">
           <a style="position: relative; display: flex; align-items: center;" class="item item-avatar-left">
-            <img style="border-radius:0;" ng-src="img/self.png" ng-show="isLogin">
+            <img style="border-radius:0; width: 65px; height: 65px;" ng-src={{avatar}} ng-show="isLogin" ng-click="changeAvat(event)">
             <h2 style="font-weight: 500" ng-show="isLogin">魏天尧</h2>
             <img style="position: absolute;left:2px;" ng-src="img/notlogin1.png" ng-show="!isLogin" ng-click="openModal();">
             <img style="position: absolute;left:60px;top:23px" ng-src="img/notlogin2.png" ng-show="!isLogin" ng-click="openModal();">
