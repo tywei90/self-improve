@@ -162,13 +162,13 @@ angular.module('starter.controllers', [])
   //Cleanup the modal when we are done with it!
   // Execute action on remove modal
   $scope.$on("$destroy", function() {
-    console.log('modal.$destroy');
+    // console.log('modal.$destroy');
     $scope.modal.remove();
   });
   // Execute action on hide modal
   $scope.$on("modal.hidden", function() {
     // Execute action
-    console.log('modal.hidden');
+    // console.log('modal.hidden');
   });
   $scope.login = function() {
     // console.log($scope.newUser.account);
@@ -246,13 +246,12 @@ angular.module('starter.controllers', [])
   }, false);
   $scope.allThemes = ['royal', 'assertive', 'energized', 'balanced', 'calm', 'positive'];
   $scope.changeTheme = function(theme) {
-    $rootScope.className = !$rootScope.className;
-    for (var i = 0, len = $scope.allThemes.length; i < len; i++) {
-      if ($scope.allThemes[i] == theme && i != len - 1) {
-        $rootScope.theme = $scope.allThemes[i + 1];
-      } else if ($scope.allThemes[i] == theme && i == len - 1) {
-        $rootScope.theme = $scope.allThemes[0];
-      }
+    var index = $scope.allThemes.indexOf(theme);
+    var len = $scope.allThemes.length;
+    if(index == len-1 || index == -1){
+      $rootScope.theme = $scope.allThemes[0];
+    }else{
+      $rootScope.theme = $scope.allThemes[index + 1];
     }
   };
 })
