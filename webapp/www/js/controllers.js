@@ -136,17 +136,22 @@ angular.module('starter.controllers', [])
 
 //侧边栏controller定义
 .controller('sideMenu', function($scope, $rootScope, $ionicModal, $ionicSideMenuDelegate, $ionicPopup, $cordovaDialogs, $cordovaCamera, $cordovaImagePicker) {
+  $scope.newUser = {
+    account: "",
+    password: "",
+    validate: ""
+  };
+  $scope.isLogin = false;
+  $scope.flag1 = false;
+  $scope.flag2 = false;
+  $scope.flag3 = false;
+  $scope.avatar = 'img/self.png';
   $ionicModal.fromTemplateUrl("my-modal.html", {
     scope: $scope,
     animation: "slide-in-up"
   }).then(function(modal) {
     $scope.modal = modal;
   });
-  $scope.newUser = {};
-  $scope.isLogin = false;
-  $scope.flag1 = false;
-  $scope.flag2 = false;
-  $scope.flag3 = false;
   $scope.openModal = function() {
     $scope.modal.show();
   };
@@ -154,7 +159,45 @@ angular.module('starter.controllers', [])
     $scope.modal.hide();
     $ionicSideMenuDelegate.toggleLeft();
   };
-  $scope.avatar = 'img/self.png';
+  //Cleanup the modal when we are done with it!
+  // Execute action on remove modal
+  $scope.$on("$destroy", function() {
+    console.log('modal.$destroy');
+    $scope.modal.remove();
+  });
+  // Execute action on hide modal
+  $scope.$on("modal.hidden", function() {
+    // Execute action
+    console.log('modal.hidden');
+  });
+  $scope.login = function() {
+    // console.log($scope.newUser.account);
+    if ($scope.newUser.account == "wty" && $scope.newUser.password == "123456" && $scope.newUser.validate == "g8pk") {
+      $scope.isLogin = true;
+      $scope.modal.hide();
+      $ionicSideMenuDelegate.toggleLeft(true);
+    } else {
+      $scope.isLogin = false;
+    }
+  };
+  $scope.showConfirm = function() {
+    $ionicPopup.confirm({
+      title: "温馨提示：",
+      template: "您确定要注销登录？",
+      okText:"确定",
+      cancelText:"取消"
+    })
+    .then(function(res) {
+      if(res) {
+        $scope.isLogin = false;
+        $scope.newUser.account = "";
+        $scope.newUser.password = "";
+        $scope.newUser.validate = "";
+      } else {
+        $scope.isLogin = true;
+      }
+    });
+  };
   document.addEventListener("deviceready", function() {
     $scope.changeAvat = function(event){
     $cordovaDialogs.confirm('请选择上传头像方式', '温馨提示：', ['照相机','图片库'])
@@ -201,45 +244,6 @@ angular.module('starter.controllers', [])
           });
     };
   }, false);
-  $scope.showConfirm = function() {
-    $ionicPopup.confirm({
-      title: "温馨提示：",
-      template: "您确定要注销登录？",
-      okText:"确定",
-      cancelText:"取消"
-    })
-    .then(function(res) {
-      if(res) {
-        $scope.isLogin = false;
-        $scope.newUser.account = "";
-        $scope.newUser.password = "";
-        $scope.newUser.validate = "";
-      } else {
-        $scope.isLogin = true;
-      }
-    });
-  };
-  $scope.login = function() {
-    // console.log($scope.newUser.account);
-    if ($scope.newUser.account == "wty" && $scope.newUser.password == "123456" && $scope.newUser.validate == "g8pk") {
-      $scope.isLogin = true;
-      $scope.modal.hide();
-      $ionicSideMenuDelegate.toggleLeft(true);
-    } else {
-      $scope.isLogin = false;
-    }
-  };
-  //Cleanup the modal when we are done with it!
-  $scope.$on("$destroy", function() {
-    console.log('modal.$destroy');
-    $scope.modal.remove();
-  });
-  // Execute action on hide modal
-  $scope.$on("modal.hidden", function() {
-    // Execute action
-    console.log('modal.hidden');
-  });
-  // Execute action on remove modal
   $scope.allThemes = ['royal', 'assertive', 'energized', 'balanced', 'calm', 'positive'];
   $scope.changeTheme = function(theme) {
     $rootScope.className = !$rootScope.className;
@@ -308,9 +312,8 @@ angular.module('starter.controllers', [])
     $timeout(function() {
       $scope.$apply(function() {
         if ($scope.addSites.length > 0) {
-          var Arr = $scope.addSites.shift();
-          // console.log($scope.addSites);
-          $scope.sites.push(Arr);
+          var Arr = $scope.addSites.splice(0,2);
+          $scope.sites = $scope.sites.concat(Arr);
           // console.log($scope.sites);
         }
       })
@@ -366,10 +369,10 @@ angular.module('starter.controllers', [])
           // An error occurred
           },
           function(result) {
-            $scope.timeStamp = new Date(parseInt(result.timestamp)).toLocaleString().replace(/年|月/g, "-").replace(/日/g, " ");
-            $scope.X = (result.x).toString().substring(0, 4);
-            $scope.Y = (result.y).toString().substring(0, 4);
-            $scope.Z = (result.z).toString().substring(0, 4);
+            $scope.timeStamp = new Date(parseInt(result.timestamp)).toLocaleString().replace(/\//g, "-");
+            $scope.X = (result.x).toFixed(2);
+            $scope.Y = (result.y).toFixed(2);
+            $scope.Z = (result.z).toFixed(2);
           $scope.clearWatch = function() {
             watch.clearWatch();
           }
@@ -382,7 +385,7 @@ angular.module('starter.controllers', [])
     $cordovaNativeAudio
       .preloadSimple('click', 'lib/audio/lbxx.mp3')
       .then(function (msg) {
-        console.log(msg);
+        // console.log(msg);
       }, function (error) {
         alert(error);
       });

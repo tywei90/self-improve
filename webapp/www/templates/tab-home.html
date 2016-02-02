@@ -30,7 +30,7 @@
         <div ng-init="z=0" style="-webkit-animation: shake {{z}}s infinite alternate;" ng-touchstart="z=0.1" ng-touchend="z=0" ng-click="openURL('http://m.ctrip.com/html5/you/')" class="col royal-bg">攻略社区<i class="icon ion-person-stalker"></i></div>
       </div>
     </div>
-    <div class="recommend" hm-swipe-left="switchRight()">
+    <div class="recommend" on-swipe-left="switchRight()">
       <h3>精选推荐</h3>
       <ion-infinite-scroll style="height:0px;" on-infinite="load_more();" icon="ion-load-a" distance="5%" immediate-check="true"></ion-infinite-scroll>
       <div class="row" ng-repeat="site in sites">
