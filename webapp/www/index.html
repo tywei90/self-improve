@@ -24,17 +24,6 @@
   <script src="js/app.js"></script>
   <script src="js/controllers.js"></script>
   <script src="js/services.js"></script>
-  <script type="text/javascript">
-    // 拓展数组的属性，获取元素的位置index
-    Array.prototype.indexOf = function(el) {
-      for (var i = 0, n = this.length; i < n; i++) {
-        if (this[i] === el) {
-          return i;
-        }
-      }
-      return -1;
-    };
-  </script>
 </head>
 
 <body ng-app="starter">

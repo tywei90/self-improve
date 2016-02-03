@@ -190,6 +190,7 @@ angular.module('starter.controllers', [])
     .then(function(res) {
       if(res) {
         $scope.isLogin = false;
+        //清空登录信息
         $scope.newUser.account = "";
         $scope.newUser.password = "";
         $scope.newUser.validate = "";
@@ -402,6 +403,60 @@ angular.module('starter.controllers', [])
   $scope.switchLeft = function() {
     $state.go('tab.dash')
   };
+  $scope.chats = Chats.all();
+  $scope.remove = function(chat) {
+    // console.log(chat);
+    // console.log(Chats.all());
+    //修改被置顶的chat的index值，这样取消置顶之后正确返回原来位置
+    var index = $scope.chats.indexOf(chat);
+    console.log("sss"+index);
+    for(var i=0,len=$scope.chats.length; i<len; i++){
+      if($scope.chats[i].priority==1 && $scope.chats[i].index>=index){
+        $scope.chats[i].index = $scope.chats[i].index-1;
+      }
+    }
+    Chats.remove($scope.chats, chat);
+    $rootScope.refreshBadge($scope.chats);
+  };
+  $scope.flag = {
+    showDelete: false,
+    showReorder: false
+  };
+  $scope.move = function(chat, fromIndex, toIndex) {
+    // console.log(fromIndex);
+    // console.log(toIndex);
+    // console.log(chat);
+    $scope.chats.splice(fromIndex, 1);
+    $scope.chats.splice(toIndex, 0, chat);
+    // console.log(chat);
+  };
+  $scope.changeBadge = function(chat) {
+    if (chat.state === "block") {
+      $scope.state = "none";
+      $rootScope.badgeNum = $rootScope.badgeNum - chat.num;
+    }
+  };
+  $scope.doRefresh = function() {
+    if ($rootScope.addChats.length != 0) {
+      var delArr = $rootScope.addChats.splice(0, 3);
+      // console.log(delArr);
+      // console.log($rootScope.addChats);
+      var priority1Array = [];
+      var priority0Array = [];
+      for(var i=0,len=$scope.chats.length; i<len; i++){
+        if($scope.chats[i].priority == 1){
+          priority1Array.push($scope.chats[i]);
+          //新加进来三个，所以以前置顶的chat的index要加3，这样取消置顶之后正确返回原来位置
+          $scope.chats[i].index = $scope.chats[i].index + 3;
+        }else if($scope.chats[i].priority == 0){
+          priority0Array.push($scope.chats[i]);
+        }
+      };
+      $scope.chats = priority1Array.concat(delArr.concat(priority0Array));
+      $rootScope.refreshBadge($scope.chats);
+    }
+    $scope.$broadcast("scroll.refreshComplete");
+  };
   $scope.showSheet = function(chat) {
     if (chat.state == 'none' && chat.priority == 0) {
       // Show the action sheet
@@ -422,6 +477,7 @@ angular.module('starter.controllers', [])
             console.log("置顶聊天");
             chat.priority = 1;
             chat.bgColor = 'eee';
+            //记住chat的位置，方便下次取消置顶之后回到原来位置
             chat.index = $scope.chats.indexOf(chat);
             $scope.move(chat, chat.index, 0);
           };
@@ -607,57 +663,6 @@ angular.module('starter.controllers', [])
         break;
     }
   };
-  $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
-    // console.log(chat);
-    // console.log(Chats.all());
-    Chats.remove($scope.chats, chat);
-    $rootScope.refreshBadge($scope.chats);
-    var index = $scope.chats.indexOf(chat);
-    for(var i=0,len=$scope.chats.length; i<len; i++){
-      if($scope.chats[i].priority==1 && $scope.chats[i].index>=index){
-        $scope.chats[i].index = $scope.chats[i].index-1;
-      }
-    }
-  };
-  $scope.flag = {
-    showDelete: false,
-    showReorder: false
-  };
-  $scope.move = function(chat, fromIndex, toIndex) {
-    // console.log(fromIndex);
-    // console.log(toIndex);
-    // console.log(chat);
-    $scope.chats.splice(fromIndex, 1);
-    $scope.chats.splice(toIndex, 0, chat);
-    // console.log(chat);
-  };
-  $scope.changeBadge = function(chat) {
-    if (chat.state === "block") {
-      $scope.state = "none";
-      $rootScope.badgeNum = $rootScope.badgeNum - chat.num;
-    }
-  };
-  $scope.doRefresh = function() {
-    if ($rootScope.addChats.length != 0) {
-      var delArr = $rootScope.addChats.splice(0, 3);
-      // console.log(delArr);
-      // console.log($rootScope.addChats);
-      var priority1Array = [];
-      var priority0Array = [];
-      for(var i=0,len=$scope.chats.length; i<len; i++){
-        if($scope.chats[i].priority == 1){
-          priority1Array.push($scope.chats[i]);
-          $scope.chats[i].index = $scope.chats[i].index + 3;
-        }else if($scope.chats[i].priority == 0){
-          priority0Array.push($scope.chats[i]);
-        }
-      };
-      $scope.chats = priority1Array.concat(delArr.concat(priority0Array));
-      $rootScope.refreshBadge($scope.chats);
-    }
-    $scope.$broadcast("scroll.refreshComplete");
-  }
 })
 
 //微信详情页controller定义
@@ -683,6 +688,29 @@ angular.module('starter.controllers', [])
     text: "朋友圈照片更新",
     selected: true
   }];
+  document.addEventListener("deviceready", function() {
+    $cordovaNativeAudio
+      .preloadSimple('toggle', 'lib/audio/apple.mp3')
+      .then(function (msg) {
+        console.log(msg);
+      }, function (error) {
+        alert(error);
+      });
+    $scope.play = function(value1) {
+      if (value1) {
+        $cordovaNativeAudio.play('toggle');
+      }else{
+        $cordovaNativeAudio.stop('toggle');
+      }
+    };
+    $scope.vibrate = function(value2) {
+      if (value2) {
+        $cordovaVibration.vibrate(1000);
+      }else{
+        $cordovaVibration.vibrate(0);
+      }
+    };
+  }, false);
   $scope.banners = [{
     label: "HTML5"
   }, {
@@ -745,27 +773,4 @@ angular.module('starter.controllers', [])
       })
     }
   };
-  document.addEventListener("deviceready", function() {
-    $cordovaNativeAudio
-      .preloadSimple('toggle', 'lib/audio/apple.mp3')
-      .then(function (msg) {
-        console.log(msg);
-      }, function (error) {
-        alert(error);
-      });
-    $scope.play = function(value1) {
-      if (value1) {
-        $cordovaNativeAudio.play('toggle');
-      }else{
-        $cordovaNativeAudio.stop('toggle');
-      }
-    };
-    $scope.vibrate = function(value2) {
-      if (value2) {
-        $cordovaVibration.vibrate(1000);
-      }else{
-        $cordovaVibration.vibrate(0);
-      }
-    };
-  }, false);
 });
