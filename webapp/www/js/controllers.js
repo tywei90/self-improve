@@ -28,11 +28,11 @@ angular.module('starter.controllers', [])
     name: '刘健',
     lastText: '[位置]',
     face: 'img/liujian.png',
-    num:3,
-    state:"block",
+    num: 3,
+    state: "block",
     bgColor: 'fff',
-    priority:0,
-  },{
+    priority: 0,
+  }, {
     id: 5,
     name: 'QQ邮箱',
     lastText: '西安电子科技大学：魏天尧同学，母校诚挚邀请您参加学校研究生培养质量调查，帮助母校教改',
@@ -40,7 +40,7 @@ angular.module('starter.controllers', [])
     num: 2,
     state: "block",
     bgColor: 'fff',
-    priority:0,
+    priority: 0,
   }, {
     id: 6,
     name: '魏淑君',
@@ -49,7 +49,7 @@ angular.module('starter.controllers', [])
     num: 1,
     state: "block",
     bgColor: 'fff',
-    priority:0,
+    priority: 0,
   }, {
     id: 7,
     name: '王鑫',
@@ -58,7 +58,7 @@ angular.module('starter.controllers', [])
     num: 1,
     state: "block",
     bgColor: 'fff',
-    priority:0,
+    priority: 0,
   }, {
     id: 8,
     name: '网易金融',
@@ -67,7 +67,7 @@ angular.module('starter.controllers', [])
     num: 1,
     state: "block",
     bgColor: 'fff',
-    priority:0,
+    priority: 0,
   }, {
     id: 9,
     name: '相龙东',
@@ -76,7 +76,7 @@ angular.module('starter.controllers', [])
     num: 3,
     state: "block",
     bgColor: 'fff',
-    priority:0,
+    priority: 0,
   }, {
     id: 10,
     name: '王硕',
@@ -85,7 +85,7 @@ angular.module('starter.controllers', [])
     num: 6,
     state: "block",
     bgColor: 'fff',
-    priority:0,
+    priority: 0,
   }, {
     id: 11,
     name: '翟华星',
@@ -94,7 +94,7 @@ angular.module('starter.controllers', [])
     num: 4,
     state: "block",
     bgColor: 'fff',
-    priority:0,
+    priority: 0,
   }, {
     id: 12,
     name: '陈昊',
@@ -103,7 +103,7 @@ angular.module('starter.controllers', [])
     num: 6,
     state: "block",
     bgColor: 'fff',
-    priority:0,
+    priority: 0,
   }, {
     id: 13,
     name: '常友辉',
@@ -112,7 +112,7 @@ angular.module('starter.controllers', [])
     num: 2,
     state: "block",
     bgColor: 'fff',
-    priority:0,
+    priority: 0,
   }, {
     id: 14,
     name: '曾峙垚',
@@ -121,7 +121,7 @@ angular.module('starter.controllers', [])
     num: 1,
     state: "block",
     bgColor: 'fff',
-    priority:0,
+    priority: 0,
   }, {
     id: 15,
     name: '徐维佳',
@@ -130,7 +130,7 @@ angular.module('starter.controllers', [])
     num: 1,
     state: "block",
     bgColor: 'fff',
-    priority:0,
+    priority: 0,
   }];
 }])
 
@@ -182,35 +182,35 @@ angular.module('starter.controllers', [])
   };
   $scope.showConfirm = function() {
     $ionicPopup.confirm({
-      title: "温馨提示：",
-      template: "您确定要注销登录？",
-      okText:"确定",
-      cancelText:"取消"
-    })
-    .then(function(res) {
-      if(res) {
-        $scope.isLogin = false;
-        $scope.newUser.account = "";
-        $scope.newUser.password = "";
-        $scope.newUser.validate = "";
-      } else {
-        $scope.isLogin = true;
-      }
-    });
+        title: "温馨提示：",
+        template: "您确定要注销登录？",
+        okText: "确定",
+        cancelText: "取消"
+      })
+      .then(function(res) {
+        if (res) {
+          $scope.isLogin = false;
+          $scope.newUser.account = "";
+          $scope.newUser.password = "";
+          $scope.newUser.validate = "";
+        } else {
+          $scope.isLogin = true;
+        }
+      });
   };
   document.addEventListener("deviceready", function() {
-    $scope.changeAvat = function(event){
-    $cordovaDialogs.confirm('请选择上传头像方式', '温馨提示：', ['照相机','图片库'])
-     .then(function(buttonIndex) {
-       var btnIndex = buttonIndex;
-       if(btnIndex == 1){
-         $scope.takePhoto();
-       }else if(btnIndex == 2){
-        $scope.pickAlbum();
-       };
-     });
+    $scope.changeAvat = function(event) {
+      $cordovaDialogs.confirm('请选择上传头像方式', '温馨提示：', ['照相机', '图片库'])
+        .then(function(buttonIndex) {
+          var btnIndex = buttonIndex;
+          if (btnIndex == 1) {
+            $scope.takePhoto();
+          } else if (btnIndex == 2) {
+            $scope.pickAlbum();
+          };
+        });
     };
-    $scope.takePhoto = function(){
+    $scope.takePhoto = function() {
       var options = {
         quality: 50,
         destinationType: Camera.DestinationType.DATA_URL,
@@ -221,7 +221,7 @@ angular.module('starter.controllers', [])
         targetHeight: 65,
         popoverOptions: CameraPopoverOptions,
         saveToPhotoAlbum: false,
-        correctOrientation:true
+        correctOrientation: true
       };
       $cordovaCamera.getPicture(options).then(function(imageData) {
         $scope.avatar = "data:image/jpeg;base64," + imageData;
@@ -229,28 +229,28 @@ angular.module('starter.controllers', [])
         console.log(err);
       });
     };
-    $scope.pickAlbum = function(){
+    $scope.pickAlbum = function() {
       var options = {
-         maximumImagesCount: 1,
-         width: 65,
-         height: 65,
-         quality: 80
-        };
-        $cordovaImagePicker.getPictures(options)
-          .then(function (result) {
-            $scope.avatar = result[0];
-          }, function(error) {
-            alert(error);
-          });
+        maximumImagesCount: 1,
+        width: 65,
+        height: 65,
+        quality: 80
+      };
+      $cordovaImagePicker.getPictures(options)
+        .then(function(result) {
+          $scope.avatar = result[0];
+        }, function(error) {
+          alert(error);
+        });
     };
   }, false);
   $scope.allThemes = ['royal', 'assertive', 'energized', 'balanced', 'calm', 'positive'];
   $scope.changeTheme = function(theme) {
     var index = $scope.allThemes.indexOf(theme);
     var len = $scope.allThemes.length;
-    if(index == len-1 || index == -1){
+    if (index == len - 1 || index == -1) {
       $rootScope.theme = $scope.allThemes[0];
-    }else{
+    } else {
       $rootScope.theme = $scope.allThemes[index + 1];
     }
   };
@@ -311,7 +311,7 @@ angular.module('starter.controllers', [])
     $timeout(function() {
       $scope.$apply(function() {
         if ($scope.addSites.length > 0) {
-          var Arr = $scope.addSites.splice(0,2);
+          var Arr = $scope.addSites.splice(0, 2);
           $scope.sites = $scope.sites.concat(Arr);
           // console.log($scope.sites);
         }
@@ -334,25 +334,25 @@ angular.module('starter.controllers', [])
       $cordovaBarcodeScanner
         .scan()
         .then(function(result) {
-          if(result.cancelled == false){
-            $cordovaDialogs.confirm('网址：' + result.text, '扫描结果', ['打开','复制'])
-             .then(function(buttonIndex) {
-               var btnIndex = buttonIndex;
-               if(btnIndex == 1){
-                 $rootScope.openURL(result.text);
-               }else if(btnIndex == 2){
+          if (result.cancelled == false) {
+            $cordovaDialogs.confirm('网址：' + result.text, '扫描结果', ['打开', '复制'])
+              .then(function(buttonIndex) {
+                var btnIndex = buttonIndex;
+                if (btnIndex == 1) {
+                  $rootScope.openURL(result.text);
+                } else if (btnIndex == 2) {
                   // window.clipboardData.setData("Text", result.text); 这个可以省略，该插件已经默认复制好了
                   $cordovaDialogs.alert('复制成功！', '温馨提示：', '确定')
                     .then(function() {
                       // callback success
                     });
-               }
-             });
+                }
+              });
           }
         }, function(error) {
           alert("Scanning failed: " + error);
         });
-      };
+    };
     $scope.alert = function() {
       $cordovaDialogs.alert('这是小米2S手机', '温馨提示', '返回')
         .then(function() {
@@ -360,22 +360,24 @@ angular.module('starter.controllers', [])
         });
     };
     $scope.version = $cordovaDevice.getVersion();
-    var options = { frequency: 1000 };
+    var options = {
+      frequency: 1000
+    };
     var watch = $cordovaDeviceMotion.watchAcceleration(options);
-        watch.then(
-          null,
-          function(error) {
-          // An error occurred
-          },
-          function(result) {
-            $scope.timeStamp = new Date(parseInt(result.timestamp)).toLocaleString().replace(/\//g, "-");
-            $scope.X = (result.x).toFixed(2);
-            $scope.Y = (result.y).toFixed(2);
-            $scope.Z = (result.z).toFixed(2);
-          $scope.clearWatch = function() {
-            watch.clearWatch();
-          }
-        });
+    watch.then(
+      null,
+      function(error) {
+        // An error occurred
+      },
+      function(result) {
+        $scope.timeStamp = new Date(parseInt(result.timestamp)).toLocaleString().replace(/\//g, "-");
+        $scope.X = (result.x).toFixed(2);
+        $scope.Y = (result.y).toFixed(2);
+        $scope.Z = (result.z).toFixed(2);
+        $scope.clearWatch = function() {
+          watch.clearWatch();
+        }
+      });
 
     // 震动0.6秒
     $scope.vibrate = function() {
@@ -383,13 +385,13 @@ angular.module('starter.controllers', [])
     };
     $cordovaNativeAudio
       .preloadSimple('click', 'lib/audio/lbxx.mp3')
-      .then(function (msg) {
+      .then(function(msg) {
         // console.log(msg);
-      }, function (error) {
+      }, function(error) {
         alert(error);
       });
     $scope.audio = function() {
-        $cordovaNativeAudio.play('click');
+      $cordovaNativeAudio.play('click');
     };
   }, false);
 })
@@ -401,6 +403,57 @@ angular.module('starter.controllers', [])
   };
   $scope.switchLeft = function() {
     $state.go('tab.dash')
+  };
+  $scope.chats = Chats.all();
+  $scope.remove = function(chat) {
+    // console.log(chat);
+    // console.log(Chats.all());
+    Chats.remove($scope.chats, chat);
+    $rootScope.refreshBadge($scope.chats);
+    var index = $scope.chats.indexOf(chat);
+    for (var i = 0, len = $scope.chats.length; i < len; i++) {
+      if ($scope.chats[i].priority == 1 && $scope.chats[i].index >= index) {
+        $scope.chats[i].index = $scope.chats[i].index - 1;
+      }
+    }
+  };
+  $scope.flag = {
+    showDelete: false,
+    showReorder: false
+  };
+  $scope.move = function(chat, fromIndex, toIndex) {
+    // console.log(fromIndex);
+    // console.log(toIndex);
+    // console.log(chat);
+    $scope.chats.splice(fromIndex, 1);
+    $scope.chats.splice(toIndex, 0, chat);
+    // console.log(chat);
+  };
+  $scope.changeBadge = function(chat) {
+    if (chat.state === "block") {
+      $scope.state = "none";
+      $rootScope.badgeNum = $rootScope.badgeNum - chat.num;
+    }
+  };
+  $scope.doRefresh = function() {
+    if ($rootScope.addChats.length != 0) {
+      var delArr = $rootScope.addChats.splice(0, 3);
+      // console.log(delArr);
+      // console.log($rootScope.addChats);
+      var priority1Array = [];
+      var priority0Array = [];
+      for (var i = 0, len = $scope.chats.length; i < len; i++) {
+        if ($scope.chats[i].priority == 1) {
+          priority1Array.push($scope.chats[i]);
+          $scope.chats[i].index = $scope.chats[i].index + 3;
+        } else if ($scope.chats[i].priority == 0) {
+          priority0Array.push($scope.chats[i]);
+        }
+      };
+      $scope.chats = priority1Array.concat(delArr.concat(priority0Array));
+      $rootScope.refreshBadge($scope.chats);
+    }
+    $scope.$broadcast("scroll.refreshComplete");
   };
   $scope.showSheet = function(chat) {
     if (chat.state == 'none' && chat.priority == 0) {
@@ -434,8 +487,7 @@ angular.module('starter.controllers', [])
           return true;
         }
       });
-    }
-    else if (chat.state == 'none' && chat.priority == 1) {
+    } else if (chat.state == 'none' && chat.priority == 1) {
       // Show the action sheet
       $ionicActionSheet.show({
         cancelOnStateChange: true,
@@ -466,8 +518,7 @@ angular.module('starter.controllers', [])
           return true;
         }
       });
-    }
-    else if (chat.state == 'block' && chat.priority == 0) {
+    } else if (chat.state == 'block' && chat.priority == 0) {
       // Show the action sheet
       $ionicActionSheet.show({
         cancelOnStateChange: true,
@@ -497,8 +548,7 @@ angular.module('starter.controllers', [])
           return true;
         }
       });
-    }
-    else if(chat.state == 'block' && chat.priority == 1) {
+    } else if (chat.state == 'block' && chat.priority == 1) {
       // Show the action sheet
       $ionicActionSheet.show({
         cancelOnStateChange: true,
@@ -542,13 +592,16 @@ angular.module('starter.controllers', [])
   //红色徽章的拖拽效果
   $scope.clientX = 48;
   $scope.clientY = 10;
-  $scope.dragStart = function(event){
+  $scope.dragStart = function(event) {
     var e = event || window.event;
-        $(e.target).css({'transition': ' transform 0s', 'transform': 'rotate(720deg)'});
-        $scope.pageX=e.touches[0].pageX; 
-        $scope.pageY=e.touches[0].pageY;
+    $(e.target).css({
+      'transition': ' transform 0s',
+      'transform': 'rotate(720deg)'
+    });
+    $scope.pageX = e.touches[0].pageX;
+    $scope.pageY = e.touches[0].pageY;
   };
-  $scope.dragMove = function(event, chat){
+  $scope.dragMove = function(event, chat) {
     var a = $scope.clientX;
     var b = $scope.clientY;
     var c = $scope.pageX;
@@ -566,7 +619,7 @@ angular.module('starter.controllers', [])
     // 内容不多，可是会非常实用！
     // 将红色徽章的父级元素z-index值设置成最大
     chat.zindex = 5;
-    switch (e.type){
+    switch (e.type) {
       case "touchmove":
         // $(e.target).css("left", a + e.touches[0].pageX - c) ; 
         // $(e.target).css("top", b + e.touches[0].pageY - d) ; 
@@ -574,26 +627,39 @@ angular.module('starter.controllers', [])
         $scope.g = e.touches[0].pageY;
         var deltaX = $scope.f - c;
         var deltaY = $scope.g - d;
-        var deg = Math.atan(deltaY/deltaX)*180/Math.PI;
+        var deg = Math.atan(deltaY / deltaX) * 180 / Math.PI;
         $scope.deg = deg + (deltaX > 0 ? 90 : -90);
         // console.log($scope.deg);
-        $(e.target).css({'transform': 'rotate('+$scope.deg+'deg)', "left": a + e.touches[0].pageX - c, "top": b + e.touches[0].pageY - d});
-        if(Math.pow(($scope.f - c), 2) + Math.pow(($scope.g - d), 2) >= 1000){
+        $(e.target).css({
+          'transform': 'rotate(' + $scope.deg + 'deg)',
+          "left": a + e.touches[0].pageX - c,
+          "top": b + e.touches[0].pageY - d
+        });
+        if (Math.pow(($scope.f - c), 2) + Math.pow(($scope.g - d), 2) >= 1000) {
           $(e.target).css('backgroundColor', '#0ECC3E');
-        }else{
+        } else {
           $(e.target).css('backgroundColor', '#ef473a');
         }
         break;
       case "touchend":
         // console.log($scope.f - c,$scope.g - d);
-        if(Math.pow(($scope.f - c), 2) + Math.pow(($scope.g - d), 2) <= 1000){
-          $(e.target).animate({left: a+"px", top: b+"px"}, 400);
-          $(e.target).css({'transition': ' transform 0.4s', 'transform': 'rotate(720deg)'});
+        if (Math.pow(($scope.f - c), 2) + Math.pow(($scope.g - d), 2) <= 1000) {
+          $(e.target).animate({
+            left: a + "px",
+            top: b + "px"
+          }, 400);
+          $(e.target).css({
+            'transition': ' transform 0.4s',
+            'transform': 'rotate(720deg)'
+          });
           // 将红色徽章的父级元素z-index值重置
           chat.zindex = 2;
-        }else{
-          $(e.target).css({'transition': ' transform 0.4s', 'transform': 'rotate(720deg)'});
-          $(e.target).fadeOut(400, function(){
+        } else {
+          $(e.target).css({
+            'transition': ' transform 0.4s',
+            'transform': 'rotate(720deg)'
+          });
+          $(e.target).fadeOut(400, function() {
             //立即生效，注意apply作用！
             $scope.$apply(function() {
               chat.num = 0;
@@ -607,57 +673,6 @@ angular.module('starter.controllers', [])
         break;
     }
   };
-  $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
-    // console.log(chat);
-    // console.log(Chats.all());
-    Chats.remove($scope.chats, chat);
-    $rootScope.refreshBadge($scope.chats);
-    var index = $scope.chats.indexOf(chat);
-    for(var i=0,len=$scope.chats.length; i<len; i++){
-      if($scope.chats[i].priority==1 && $scope.chats[i].index>=index){
-        $scope.chats[i].index = $scope.chats[i].index-1;
-      }
-    }
-  };
-  $scope.flag = {
-    showDelete: false,
-    showReorder: false
-  };
-  $scope.move = function(chat, fromIndex, toIndex) {
-    // console.log(fromIndex);
-    // console.log(toIndex);
-    // console.log(chat);
-    $scope.chats.splice(fromIndex, 1);
-    $scope.chats.splice(toIndex, 0, chat);
-    // console.log(chat);
-  };
-  $scope.changeBadge = function(chat) {
-    if (chat.state === "block") {
-      $scope.state = "none";
-      $rootScope.badgeNum = $rootScope.badgeNum - chat.num;
-    }
-  };
-  $scope.doRefresh = function() {
-    if ($rootScope.addChats.length != 0) {
-      var delArr = $rootScope.addChats.splice(0, 3);
-      // console.log(delArr);
-      // console.log($rootScope.addChats);
-      var priority1Array = [];
-      var priority0Array = [];
-      for(var i=0,len=$scope.chats.length; i<len; i++){
-        if($scope.chats[i].priority == 1){
-          priority1Array.push($scope.chats[i]);
-          $scope.chats[i].index = $scope.chats[i].index + 3;
-        }else if($scope.chats[i].priority == 0){
-          priority0Array.push($scope.chats[i]);
-        }
-      };
-      $scope.chats = priority1Array.concat(delArr.concat(priority0Array));
-      $rootScope.refreshBadge($scope.chats);
-    }
-    $scope.$broadcast("scroll.refreshComplete");
-  }
 })
 
 //微信详情页controller定义
@@ -748,22 +763,22 @@ angular.module('starter.controllers', [])
   document.addEventListener("deviceready", function() {
     $cordovaNativeAudio
       .preloadSimple('toggle', 'lib/audio/apple.mp3')
-      .then(function (msg) {
+      .then(function(msg) {
         console.log(msg);
-      }, function (error) {
+      }, function(error) {
         alert(error);
       });
     $scope.play = function(value1) {
       if (value1) {
         $cordovaNativeAudio.play('toggle');
-      }else{
+      } else {
         $cordovaNativeAudio.stop('toggle');
       }
     };
     $scope.vibrate = function(value2) {
       if (value2) {
         $cordovaVibration.vibrate(1000);
-      }else{
+      } else {
         $cordovaVibration.vibrate(0);
       }
     };
