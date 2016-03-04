@@ -33,11 +33,11 @@ xmlhttp.onreadystatechange = state_Change;
 //刚进入页面请求一次
 xmlhttp.open("GET", url, true);
 xmlhttp.send(null);
-//每隔5分钟ajax异步请求一次数据，更新data值
+//每隔1分钟ajax异步请求一次数据，更新data值
 var timer = setInterval(function() {
     xmlhttp.open("GET", url, true);
     xmlhttp.send(null);
-}, 3 * 1000);
+}, 60 * 1000);
 //回调处理，一次请求的数据是50条
 function state_Change() {
     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
