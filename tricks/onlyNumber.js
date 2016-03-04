@@ -1,3 +1,4 @@
+// 只允许输入数字包括小数点和限制总字数，其他禁止输入
 ca.$main.delegate(".recharge-money input", 'keydown keyup mousedown focusout', function(event) {
     me.handleInput(event);
 });
