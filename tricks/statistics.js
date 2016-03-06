@@ -28,7 +28,7 @@ data2[1] = []; //初始化：data2[1]为每个用户的购买金额，用于计�
 data2[2] = []; //初始化：data2[2]为每个用户的购买时间
 var xmlhttp = new XMLHttpRequest();
 var url = 'https://www.lmlc.com/s/web/home/user_buying';
-var startTime = (new Date()).format("yyyy-MM-dd hh:mm:ss");
+// var startTime = (new Date()).format("yyyy-MM-dd hh:mm:ss");
 xmlhttp.onreadystatechange = state_Change;
 //刚进入页面请求一次
 xmlhttp.open("GET", url, true);
@@ -49,7 +49,7 @@ function state_Change() {
             if (data2[0].indexOf(arrID) === -1) {    
                 data2[0].push(arrID);
                 data2[1].push(tmp[i].payAmount);
-                data2[2].push(tmp[i].time);
+                data2[2].push(now - tmp[i].time);
                 //购买金额格式化(格式化之后，chrome的输出金额没法按照数字大写排列)
                 // if(tmp[i].payAmount >= 10000){
                 //     tmp[i].payAmount = (tmp[i].payAmount/10000).toFixed(2).toString().replace(/\.00/,'').replace(/(\.[1-9])0/, "$1") + "万元";
@@ -71,13 +71,13 @@ function getResult(){
   var totalNum = 0;
   var value = "";
   var endTime = (new Date()).format("yyyy-MM-dd hh:mm:ss");
-  var maxTime = Math.max.apply(null, data2[2]);
-  var firstTime = (new Date(+new Date() - maxTime)).format("yyyy-MM-dd hh:mm:ss");
+  var minTime = Math.min.apply(null, data2[2]);
+  var firstTime = (new Date(minTime)).format("yyyy-MM-dd hh:mm:ss");
   for (var i = 0, len = data2[1].length; i < len; i++) {
     totalNum += data2[1][i];
   }
   value = (totalNum/10000).toFixed(2).toString().replace(/\.00/,'').replace(/(\.[1-9])0/, "$1") + "万元";
-  console.log("开始抓取数据时间：" + startTime);
+  // console.log("开始抓取数据时间：" + startTime);
   console.log("开始统计时间：" + firstTime);
   console.log("截止到：" + endTime + "，一共售出：" + value);
   console.table(data); //列表形式打印数组
