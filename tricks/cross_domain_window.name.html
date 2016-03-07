@@ -1,4 +1,5 @@
-<#-- window.name实现的跨域数据传输，但是接受json数据貌似也有问题 -->
+<!-- window.name实现的跨域数据传输，但是接受json数据貌似也有问题，解决办法：
+在服务器端将返回类型改成：content-type: text/html -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -10,9 +11,10 @@ function getData(){
 	var iframe = document.getElementById('proxy');
 	iframe.onload = function (){
 		var jsondata = iframe.contentWindow.name;
-		console.log(jsondata);
-	}
-	iframe.src = 'http://localhost/sw/';
+        // var data = JSON.parse(jsondata).data;
+        console.table(jsondata);
+	};
+	iframe.src = 'http://localhost/sw/tricks/cross_domain_window.name.html';
 }
 </script>
 </head>
