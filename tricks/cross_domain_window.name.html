@@ -1,0 +1,24 @@
+<#-- window.name实现的跨域数据传输，但是接受json数据貌似也有问题 -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>浏览器跨域测试</title>
+<script src="http://cdn.bootcss.com/jquery/1.10.0/jquery.min.js"></script>
+<script>
+function getData(){
+	var iframe = document.getElementById('proxy');
+	iframe.onload = function (){
+		var jsondata = iframe.contentWindow.name;
+		console.log(jsondata);
+	}
+	iframe.src = 'http://localhost/sw/';
+}
+</script>
+</head>
+
+<body>
+<h1>浏览器跨域测试</h1>
+<iframe id="proxy" src="https://www.lmlc.com/s/web/home/user_buying" style="display: none;" onload = "getData()"></iframe>
+</body>
+</html>

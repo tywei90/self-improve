@@ -22,7 +22,7 @@ Date.prototype.format = function(format) {
     return format;
 }
 var data = [];
-var data2 = []; 
+var data2 = [];
 data2[0] = []; //初始化：data2[0]为payAmount值、productId值和username值字符串拼接，作为鉴别数据是否重复(也不能确保唯一性)
 data2[1] = []; //初始化：data2[1]为每个用户的购买金额，用于计算总金额
 data2[2] = []; //初始化：data2[2]为每个用户的购买时间
@@ -46,7 +46,7 @@ function state_Change() {
         for (var i = 0, len = tmp.length; i < len; i++) {
             // if (data2.indexOf(tmp[i]) === -1) { //对于元素为对象的数组不能用indexof方法去判断相等，因为每个对象都是唯一的！
             var arrID = tmp[i].payAmount.toString() + tmp[i].productId + tmp[i].username;
-            if (data2[0].indexOf(arrID) === -1) {    
+            if (data2[0].indexOf(arrID) === -1) {
                 data2[0].push(arrID);
                 data2[1].push(tmp[i].payAmount);
                 data2[2].push(now - tmp[i].time);
@@ -67,23 +67,25 @@ function state_Change() {
         return data;
     }
 }
-function getResult(){
-  var totalNum = 0;
-  var value = "";
-  var endTime = (new Date()).format("yyyy-MM-dd hh:mm:ss");
-  var minTime = Math.min.apply(null, data2[2]);
-  var firstTime = (new Date(minTime)).format("yyyy-MM-dd hh:mm:ss");
-  for (var i = 0, len = data2[1].length; i < len; i++) {
-    totalNum += data2[1][i];
-  }
-  value = (totalNum/10000).toFixed(2).toString().replace(/\.00/,'').replace(/(\.[1-9])0/, "$1") + "万元";
-  // console.log("开始抓取数据时间：" + startTime);
-  console.log("开始统计时间：" + firstTime);
-  console.log("截止到：" + endTime + "，一共售出：" + value);
-  console.table(data); //列表形式打印数组
+
+function getResult() {
+    var totalNum = 0;
+    var value = "";
+    var endTime = (new Date()).format("yyyy-MM-dd hh:mm:ss");
+    var minTime = Math.min.apply(null, data2[2]);
+    var firstTime = (new Date(minTime)).format("yyyy-MM-dd hh:mm:ss");
+    for (var i = 0, len = data2[1].length; i < len; i++) {
+        totalNum += data2[1][i];
+    }
+    value = (totalNum / 10000).toFixed(2).toString().replace(/\.00/, '').replace(/(\.[1-9])0/, "$1") + "万元";
+    // console.log("开始抓取数据时间：" + startTime);
+    console.log("开始统计时间：" + firstTime);
+    console.log("截止到：" + endTime + "，一共售出：" + value);
+    console.table(data); //列表形式打印数组
 }
-function clearRequest(){
-  window.clearInterval(timer);
+
+function clearRequest() {
+    window.clearInterval(timer);
 }
 
 
