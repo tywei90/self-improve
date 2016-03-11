@@ -28,37 +28,43 @@ Date.prototype.format = function(format) {
     return format;
 }
 
-var SHOW_TIME = "10:00:00", //开售时间，24小时制，没有时为空字符串
-    INTERVAL = 30, //刷新的时间间隔,单位:s
-    MAX_INTERVAL = 30*60,
-    MIN_INTERVAL = 1,
-    ENABLE_ADJUST = true, //在开售“期间”，INTERVAL始终为1，ENABLE_ADJUST=false
-    firstTime,
-    data = [],
-    data_old = {}, //获取的前50个数据
-    data_old.object = [], //对象数据
-    data_old.string = [], //payAmount值、productId值和username值字符串拼接
-    data_new = {}, //获取的后50个数据
-    data_new.object = [], 
-    data_new.string = [],
-    xmlhttp = new XMLHttpRequest(),
-    url = 'https://www.lmlc.com/s/web/home/user_buying';
+var SHOW_TIME = "10:00:00"; //开售时间，24小时制，没有时为空字符串
+var INTERVAL = 10; //起始刷新的时间间隔,单位:s
+var MAX_INTERVAL = 30*60;
+var MIN_INTERVAL = 10;
+var ENABLE_ADJUST = true; //在开售“期间”，INTERVAL始终为1，ENABLE_ADJUST=false
+var firstTime, timer1;
+var data = [];
+var data_old = {}; //获取的前50个数据
+    data_old.object = []; //对象数据
+    data_old.string = []; //payAmount值、productId值和username值字符串拼接
+var data_new = {}; //获取的后50个数据
+    data_new.object = []; 
+    data_new.string = [];
+var xmlhttp = new XMLHttpRequest();
+var url = 'https://www.lmlc.com/s/web/home/user_buying';
 
 xmlhttp.onreadystatechange = prepareDate;
+
 //刚进入页面请求一次
-xmlhttp.open("GET", url, true);
-xmlhttp.send(null);
+sendAjax();
 
 // 每隔INTERVAL秒，ajax异步请求一次数据，更新data值
-var timer1 = window.setInterval(function() {
-    xmlhttp.open("GET", url, true);
-    xmlhttp.send(null);
-}, INTERVAL * 1000);
+function sendAjax(){
+    if(timer1){
+        window.clearInterval(timer1);
+    }
+    timer1 = window.setInterval(function() {
+        xmlhttp.open("GET", url, true);
+        xmlhttp.send(null);
+    }, INTERVAL * 1000);
+}
+
 
 if(SHOW_TIME !== ""){
     var str = (new Date()).format("yyyy-MM-dd hh:mm:ss");
-    var arr1 = (str.split(" ")[1]).split[":"];
-    var arr2 = SHOW_TIME.split[":"];
+    var arr1 = (str.split(" ")[1]).split(":");
+    var arr2 = SHOW_TIME.split(":");
     var ts1 = parseInt(arr1[0])*60*60 + parseInt(arr1[1])*60 + parseInt(arr1[2]);
     var ts2 = parseInt(arr2[0])*60*60 + parseInt(arr2[1])*60 + parseInt(arr2[2]);
     var delta_ts = ts2 - ts1;
@@ -67,24 +73,37 @@ if(SHOW_TIME !== ""){
         delta_ts--;
         //确保一定能在开售之前检测到
         if(delta_ts > -15 * 60 && delta_ts < MAX_INTERVAL + 5){
-            ENABLE_ADJUST = false;
-            INTERVAL = 1;
+            if(ENABLE_ADJUST){
+                ENABLE_ADJUST = false;
+                INTERVAL = 1;
+                sendAjax();
+            }
         }else{
-            ENABLE_ADJUST = true;
+            if(!ENABLE_ADJUST){
+                ENABLE_ADJUST = true;
+            }
         }
     }, 1000);
 }
 
 //回调处理，一次请求的数据是50条
 function prepareDate() {
-    data_old = data_new;
+    data_old = null; //每次循环清空data_old对象
+    data_old = JSON.parse(JSON.stringify(data_new)); // a = b, 对象不能直接赋值, 否则b对象变化, a也跟着变了
+    
     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
         var now = +new Date();
         var tmp = JSON.parse(xmlhttp.responseText).data;
+        
         // 开始统计时间的计算
         if(data_new.string.length === 0){
             firstTime = (new Date(now - tmp[(tmp.length-1)].time)).format("yyyy-MM-dd hh:mm:ss");
         }
+        
+        // 每次循环清空data_new对象
+        data_new.object = [];
+        data_new.string = [];
+
         for (var i = 0, len = tmp.length; i < len; i++) {
             var arrID = tmp[i].payAmount.toString() + tmp[i].productId + tmp[i].username;
             data_new.string.push(arrID);
@@ -100,13 +119,16 @@ function prepareDate() {
 }
 
 function handleDate(data_old, data_new){
+    console.table(data_old.object);
+    console.table(data_new.object);
     if(data_old.string.length === 0){
-        data = data_old.object;
+        data = data_new.object;
+        window.localStorage.setItem("data", JSON.stringify(data)); //转化为json字符串存入localStorage
         return
     }
     var all_string = data_old.string.join("");
     //利用数据是类似队列性质，检查两列数据是否有大段重合来确定新旧数据的分割点
-    for (var i = 0, len = data_new.length; i < len; i++) {
+    for (var i = 0, len = data_new.string.length; i < len; i++) {
 
         if(data_old.string[0] === data_new.string[i]){  //查找可能匹配的分割点，有三种情况
             var index_string = data_new.string.slice(i).join("");
@@ -114,7 +136,7 @@ function handleDate(data_old, data_new){
             if(all_string.indexOf(index_string) > -1){  //因为是从前往后的，第一个能匹配的就是正确的分割点
                 adjustInterval(i, len/2);
                 data = (data_new.object.slice(0, i)).concat(data);
-                window.localStorage.setItem("data", JSON.stringify(data)); //转化为json字符串存入localStorage
+                window.localStorage.setItem("data", JSON.stringify(data));
                 return
             }
         }
@@ -128,13 +150,26 @@ function adjustInterval(index, threshold){
     if(ENABLE_ADJUST === true){
         if(index === -1){
             INTERVAL = 1;
+            sendAjax();
             var warn_str = (new Date()).format("yyyy-MM-dd hh:mm:ss");
             console.warn("在" + warn_str + "时，您可能丢失数据！");
         //可变步长迭代，因为threshold=25，所以这样精度是1s
-        }else if(index < threshold && INTERVAL < MAX_INTERVAL){
-            INTERVAL += 25 * (threshold - index)/threshold;
-        }else if(index > threshold && INTERVAL > MIN_INTERVAL){
-            INTERVAL -= 25 * (index - threshold)/threshold;
+        }else if(index <= threshold){
+            var tmp1 = INTERVAL + 25 * (threshold - index)/threshold;
+            if(tmp1 <= MAX_INTERVAL){
+                INTERVAL = tmp1;
+                sendAjax();
+            }else{
+                console.warn("您设置的MAX_INTERVAL过小，无效的请求可能会降低性能！");
+            }
+        }else if(index > threshold){
+            var tmp2 = INTERVAL - 25 * (index - threshold)/threshold;
+            if(tmp2 >= MIN_INTERVAL){
+                INTERVAL = tmp2;
+                sendAjax();
+            }else{
+                console.warn("您设置的MIN_INTERVAL过大，可能有丢失数据的危险！");
+            }
         }
     }
 }
@@ -154,7 +189,7 @@ function getResult() {
     console.table(data); //列表形式打印数组
 }
 
-function clearRequest() {
+function clearAll() {
     window.clearInterval(timer1);
     window.clearInterval(timer2);
 }
