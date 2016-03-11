@@ -28,19 +28,15 @@ Date.prototype.format = function(format) {
     return format;
 }
 
+var data = localStorage.getItem("data")? JSON.parse(window.localStorage.getItem("data")) : [];
 var SHOW_TIME = "10:00:00"; //开售时间，24小时制，没有时为空字符串
 var INTERVAL = 10; //起始刷新的时间间隔,单位:s
 var MAX_INTERVAL = 30*60;
 var MIN_INTERVAL = 10;
 var ENABLE_ADJUST = true; //在开售“期间”，INTERVAL始终为1，ENABLE_ADJUST=false
 var firstTime, timer1;
-var data = [];
-var data_old = {}; //获取的前50个数据
-    data_old.object = []; //对象数据
-    data_old.string = []; //payAmount值、productId值和username值字符串拼接
-var data_new = {}; //获取的后50个数据
-    data_new.object = []; 
-    data_new.string = [];
+var data_old = {object: [], string: []}; //获取的前50个数据
+var data_new = data.length !== 0 ? data.slice(-50) : {object: [], string: []}; //获取的后50个数据
 var xmlhttp = new XMLHttpRequest();
 var url = 'https://www.lmlc.com/s/web/home/user_buying';
 
