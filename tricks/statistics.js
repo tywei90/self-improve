@@ -6,6 +6,7 @@
 // 3、增加定点抢产品时，动态调整请求间隔时间；
 // 4、新增localstorage存储数据，可以离线统计
 // 5、优化开始统计时间的计算
+// 6、最后经测试，代码没有问题，而是首页的数据有问题，不是按照队列性质，中间会有几个数据不一样！！！
 
 //日期格式化，格式化后:2016-03-09 11:20:12
 Date.prototype.format = function(format) {
@@ -43,6 +44,8 @@ var url = 'https://www.lmlc.com/s/web/home/user_buying';
 xmlhttp.onreadystatechange = prepareDate;
 
 //刚进入页面请求一次
+xmlhttp.open("GET", url, true);
+xmlhttp.send(null);
 sendAjax();
 
 // 每隔INTERVAL秒，ajax异步请求一次数据，更新data值
@@ -85,7 +88,7 @@ if(SHOW_TIME !== ""){
 //回调处理，一次请求的数据是50条
 function prepareDate() {
     data_old = null; //每次循环清空data_old对象
-    data_old = JSON.parse(JSON.stringify(data_new)); // a = b, 对象不能直接赋值, 否则b对象变化, a也跟着变了
+    data_old = JSON.parse(JSON.stringify(data_new)); // a = b, 引用类型变量(包括对象, 数组)不能直接赋值, 否则b对象变化, a也跟着变了
     
     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
         var now = +new Date();
@@ -115,14 +118,17 @@ function prepareDate() {
 }
 
 function handleDate(data_old, data_new){
-    console.table(data_old.object);
-    console.table(data_new.object);
+    // console.table(data_old.object);
+    // console.table(data_new.object);
+    // console.log("----------------------------------------");
     if(data_old.string.length === 0){
-        data = data_new.object;
-        window.localStorage.setItem("data", JSON.stringify(data)); //转化为json字符串存入localStorage
+        var dataStr = JSON.stringify(data_new.object);
+        data = JSON.parse(dataStr);
+        window.localStorage.setItem("data", dataStr); //转化为json字符串存入localStorage
         return
     }
     var all_string = data_old.string.join("");
+
     //利用数据是类似队列性质，检查两列数据是否有大段重合来确定新旧数据的分割点
     for (var i = 0, len = data_new.string.length; i < len; i++) {
 
