@@ -16,6 +16,12 @@ new Vue({
             } else {
                 this.currentTheme++;
             }
+        },
+        setAutoDisplay: function(){
+            var cellW = 0.2 * $(document).width();
+            var cellH = 0.65 * 0.2 * $(document).width();
+            $('.cell span').width(cellW);
+            $('.cell').height(cellH);
         }
     },
     watch: {
@@ -47,6 +53,9 @@ new Vue({
         }
     },
     ready: function() {
+        var me = this;
+        me.setAutoDisplay();
+        $(window).resize(function(){me.setAutoDisplay()});
         $('.cell').hover(function() {
             $(this).find('.hide').toggle();
         }).mousedown(function(event) {
