@@ -139,7 +139,7 @@ new Vue({
             'profile': './img/7.png',
             'href': 'http://mail.163.com/',
             'account': 'tywei90@163.com',
-            'password': 'her'
+            'password': 'me_N'
         }, {
             'name': '腾讯',
             'profile': './img/9.png',
@@ -182,6 +182,12 @@ new Vue({
             'href': 'http://www.linkedin.com',
             'account': '13262269362',
             'password': '236688'
+        }, {
+            'name': 'github',
+            'profile': './img/16.png',
+            'href': 'https://github.com/tywei90',
+            'account': 'tywei90@gmail.com',
+            'password': 'her'
         }]
     }
 })
