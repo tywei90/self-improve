@@ -85,13 +85,13 @@ new Vue({
             'profile': './img/1.png',
             'href': 'http://blog.csdn.net/teal01/article/details/52102509',
             'account': 'Teal01',
-            'password': 'Csdn_2004'
+            'password': 'me_N'
         }, {
             'name': '新浪博客-前端',
             'profile': './img/2.png',
             'href': 'http://weibo.com/mygroups?gid=4004334981737692&wvr=6&leftnav=1',
             'account': 'wty-236688@163.com',
-            'password': 'Sina_weibo_2004'
+            'password': 'me_T'
         }, {
             'name': '京东商城',
             'profile': './img/3.png',
@@ -115,13 +115,13 @@ new Vue({
             'profile': './img/5.png',
             'href': 'https://www.douban.com/',
             'account': 'wty2368@163.com',
-            'password': 'Douban_2004',
+            'password': 'me_N',
         }, {
             'name': '当当',
             'profile': './img/6.png',
             'href': 'http://www.dangdang.com/',
             'account': 'wty2368@163.com',
-            'password': 'Dangdang_2004'
+            'password': 'me_N',
         }, {
             'name': '网易邮箱1',
             'profile': './img/7.png',
@@ -151,7 +151,7 @@ new Vue({
             'profile': './img/10.png',
             'href': 'https://www.amazon.cn/',
             'account': 'wty-236688@163.com',
-            'password': 'me_S'
+            'password': 'me_N'
         }, {
             'name': '携程',
             'profile': './img/11.png',
@@ -169,19 +169,19 @@ new Vue({
             'profile': './img/13.png',
             'href': 'https://segmentfault.com/',
             'account': 'wty2368@163.com',
-            'password': '236688'
+            'password': 'me_6'
         }, {
             'name': '慕课网',
             'profile': './img/14.png',
             'href': 'http://www.imooc.com/',
             'account': 'wty2368@163.com',
-            'password': '236688'
+            'password': 'me_6'
         }, {
             'name': 'linkedin',
             'profile': './img/15.png',
             'href': 'http://www.linkedin.com',
             'account': '13262269362',
-            'password': '236688'
+            'password': 'me_6'
         }, {
             'name': 'github',
             'profile': './img/16.png',
