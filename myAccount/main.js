@@ -188,6 +188,18 @@ new Vue({
             'href': 'https://github.com/tywei90',
             'account': 'tywei90@gmail.com',
             'password': 'her'
+        }, {
+            'name': 'namecheap',
+            'profile': './img/17.png',
+            'href': 'https://ap.www.namecheap.com/domains/domaincontrolpanel/weitianyao.com',
+            'account': 'tywei',
+            'password': 'me_T'
+        }, {
+            'name': 'DNSPOD',
+            'profile': './img/18.png',
+            'href': 'https://www.dnspod.cn/console/dns',
+            'account': 'wty2368@163.com',
+            'password': 'her'
         }]
     }
 })
