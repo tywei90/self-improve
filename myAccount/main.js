@@ -51,6 +51,7 @@ new Vue({
         if (currentTheme) {
             this.currentTheme = currentTheme;
         }
+        $('#login_input').focus();
     },
     ready: function() {
         var me = this;
@@ -199,6 +200,12 @@ new Vue({
             'profile': './img/18.png',
             'href': 'https://www.dnspod.cn/console/dns',
             'account': 'wty2368@163.com',
+            'password': 'her'
+        }, {
+            'name': 'coding.net',
+            'profile': './img/19.png',
+            'href': 'https://coding.net/user',
+            'account': 'tywei',
             'password': 'her'
         }]
     }
