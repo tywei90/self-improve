@@ -8,13 +8,21 @@ new Vue({
                 alert('密码错误！');
             } else {
                 this.isLogin = true;
+                sessionStorage.setItem('isLogin', 'true');
             }
         },
-        changeTheme: function() {
+        nextTheme: function() {
             if (this.currentTheme === this.themeNum) {
                 this.currentTheme = 1;
             } else {
                 this.currentTheme++;
+            }
+        },
+        prevTheme: function() {
+            if (this.currentTheme === 1) {
+                this.currentTheme = this.themeNum;
+            } else {
+                this.currentTheme--;
             }
         },
         setAutoDisplay: function(){
@@ -25,6 +33,7 @@ new Vue({
         },
         reset: function(){
             localStorage.clear();
+            sessionStorage.clear();
             location.reload();
         }
     },
@@ -39,6 +48,14 @@ new Vue({
         },
         currentTheme: function(newVal, oldVal) {
             localStorage.setItem('currentTheme', newVal);
+            var currentTheme = this.currentTheme;
+            var $login = $('.login');
+            if(!$login.hasClass('reverse') && (currentTheme == 3 || currentTheme == 4 || currentTheme == 7)){
+                $login.addClass('reverse');
+            }
+            if($login.hasClass('reverse') && currentTheme != 3 && currentTheme != 4 && currentTheme != 7){
+                $login.removeClass('reverse');
+            }
         }
     },
     computed: {
@@ -49,11 +66,15 @@ new Vue({
     created: function() {
         var currentColor = localStorage.getItem('currentColor');
         var currentTheme = localStorage.getItem('currentTheme');
+        var isLogin = sessionStorage.getItem('isLogin');
         if (currentColor) {
             this.currentColor = currentColor;
         }
         if (currentTheme) {
             this.currentTheme = currentTheme;
+        }
+        if(isLogin == 'true'){
+            this.isLogin = true;
         }
         $('#login_input').focus();
     },

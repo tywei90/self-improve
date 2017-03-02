@@ -61,14 +61,14 @@ body{
 	margin-bottom: 10px;
 }
 .bg-theme button{
-	width: 50px;
+	width: 30px;
 	margin-left: -5px;
 }
 .reset{
 	margin-bottom: 10px;
 }
 .reset button{
-	width: 50px;
+	width: 60px;
 	margin-left: -5px;
 }
 .login{
@@ -102,6 +102,12 @@ input{
 	padding: 0 10px;
 	width: 150px;
 	border-radius: 2px;
+}
+.reverse label{
+	color: white;
+}
+.reverse input{
+	border: 1px solid white;
 }
 .main{
 	padding: 0 40px 40px 40px;

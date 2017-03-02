@@ -12,11 +12,12 @@
     <div class="bg">
         <div class="bg-theme">
             <span>主题背景：</span>
-            <button @click="changeTheme">切换</button>
+            <button @click="prevTheme">&lt;</button>
+            <button @click="nextTheme">&gt;</button>
         </div>
         <div class="reset">
             <span>一键重置：</span>
-            <button @click="reset">重置</button>
+            <button title="会重置主题和颜色以及登录信息" @click="reset">重置</button>
         </div>
         <div class="bg-color f-cb" v-show="currentTheme==1">
             <span>主题颜色：</span>
