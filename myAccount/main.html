@@ -10,7 +10,15 @@
 <body id="teal" :style="{background: bgStyle}">
     <h1><span>WARNNING:</span>&nbsp;这是魏天尧网上注册的账号密码备忘，其他人请自觉关闭网页!</h1>
     <div class="bg">
-        <div class="bg-color f-cb">
+        <div class="bg-theme">
+            <span>主题背景：</span>
+            <button @click="changeTheme">切换</button>
+        </div>
+        <div class="reset">
+            <span>一键重置：</span>
+            <button @click="reset">重置</button>
+        </div>
+        <div class="bg-color f-cb" v-show="currentTheme==1">
             <span>主题颜色：</span>
             <i style="background-color: #3FDCDC" @click="currentColor='#3FDCDC'"></i>
             <i style="background-color: #8BACBF" @click="currentColor='#8BACBF'"></i>
@@ -18,10 +26,6 @@
             <i style="background-color: #13BF7A" @click="currentColor='#13BF7A'"></i>
             <i style="background-color: #35BABF" @click="currentColor='#35BABF'"></i>
             <i style="background-color: #BF80A6" @click="currentColor='#BF80A6'"></i>
-        </div>
-        <div class="bg-theme">
-            <span>主题背景：</span>
-            <button @click="changeTheme">切换</button>
         </div>
     </div>
     <div v-show="!isLogin" class="login f-cb">

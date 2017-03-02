@@ -22,6 +22,10 @@ new Vue({
             var cellH = 0.65 * 0.2 * $(document).width();
             $('.cell span').width(cellW);
             $('.cell').height(cellH);
+        },
+        reset: function(){
+            localStorage.clear();
+            location.reload();
         }
     },
     watch: {
@@ -98,7 +102,7 @@ new Vue({
             'profile': './img/3.png',
             'href': 'http://www.jd.com/',
             'account': 'tywei',
-            'password': 'her'
+            'password': 'me_T'
         }, {
             'name': '淘宝登录',
             'profile': './img/4.png',
@@ -188,7 +192,7 @@ new Vue({
             'profile': './img/16.png',
             'href': 'https://github.com/tywei90',
             'account': 'tywei90@gmail.com',
-            'password': 'her'
+            'password': 'me_T'
         }, {
             'name': 'namecheap',
             'profile': './img/17.png',
@@ -200,18 +204,30 @@ new Vue({
             'profile': './img/18.png',
             'href': 'https://www.dnspod.cn/console/dns',
             'account': 'wty2368@163.com',
-            'password': 'her'
+            'password': 'me_N'
         }, {
             'name': 'coding.net',
             'profile': './img/19.png',
             'href': 'https://coding.net/user',
             'account': 'tywei',
-            'password': 'her'
+            'password': 'me_N'
         }, {
             'name': 'nat123',
             'profile': './img/20.png',
             'href': 'http://www.nat123.com/UsersDnsList.jsp',
             'account': 'tywei',
+            'password': 'me_N'
+        }, {
+            'name': '稀土掘金',
+            'profile': './img/21.png',
+            'href': 'https://gold.xitu.io/',
+            'account': 'wty2368@163.com',
+            'password': 'me_S'
+        }, {
+            'name': 'google',
+            'profile': './img/22.png',
+            'href': 'https://www.google.com/',
+            'account': 'tywei90@gmail.com',
             'password': 'me_N'
         }]
     }

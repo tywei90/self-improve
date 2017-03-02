@@ -35,6 +35,8 @@ body{
 	top: -85px;
 	padding: 10px;
 	border-radius: 5px;
+	width: 192px;
+	// height: 90px;
 	background-color: white;
 }
 .bg-color{
@@ -49,16 +51,23 @@ body{
 	border-radius: 50%;
 	margin-left: 10px;
 	cursor: pointer;
-	margin-top: 4px;
+	margin-top: 6px;
 }
 .bg-color > span{
 	margin-right: -8px;
-	margin-bottom: 12px;
 }
 .bg-theme{
 	font-family: KaiTi;
+	margin-bottom: 10px;
 }
 .bg-theme button{
+	width: 50px;
+	margin-left: -5px;
+}
+.reset{
+	margin-bottom: 10px;
+}
+.reset button{
 	width: 50px;
 	margin-left: -5px;
 }
