@@ -16,10 +16,11 @@ ul,li{
     visibility: hidden;
 }
 h1{
+	font-size: 23px;
 	text-align: center;
 	color: red;
 	font-family: times;
-	margin-top: 100px;
+	margin-top: 140px;
 	font-family: KaiTi;
 }
 h1 span{
@@ -32,7 +33,7 @@ body{
 .bg{
 	position: absolute;
 	right: 20px;
-	top: -85px;
+	top: -125px;
 	padding: 10px;
 	border-radius: 5px;
 	width: 192px;
@@ -73,7 +74,7 @@ body{
 }
 .login{
 	margin: 0 auto;
-	margin-top: 60px;
+	margin-top: 40px;
 	width: 400px;
 	font-size: 20px;
 }
@@ -110,16 +111,20 @@ input{
 	border: 1px solid white;
 }
 .main{
-	padding: 0 40px 40px 40px;
+	padding: 0 6% 40px 6%;
     box-sizing: border-box;
 	margin: 0 auto;
 	width: 100%;
+	display: flex;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+	// align-content: center;
 }
 .cell{
-	float: left;
+	align-self: flex-start;
 	box-sizing: border-box;
 	width: 23%;
-	height: 230px;
+	height: 200px;
 	position: relative;
 	margin: 1%;
 	border-radius: 8px;

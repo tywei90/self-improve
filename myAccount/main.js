@@ -8,7 +8,9 @@ new Vue({
                 alert('密码错误！');
             } else {
                 this.isLogin = true;
+                this.setAutoDisplay();
                 sessionStorage.setItem('isLogin', 'true');
+
             }
         },
         nextTheme: function() {
@@ -26,7 +28,7 @@ new Vue({
             }
         },
         setAutoDisplay: function(){
-            var cellW = 0.2 * $(document).width();
+            var cellW = 0.2 * $(document).width() * 0.95;
             var cellH = 0.65 * 0.2 * $(document).width();
             $('.cell span').width(cellW);
             $('.cell').height(cellH);
