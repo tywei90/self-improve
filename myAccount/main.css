@@ -30,6 +30,9 @@ body{
 	height: 100%;
 	position: relative;
 }
+.overall{
+	background-size: 100%!important;
+}
 .bg{
 	position: absolute;
 	right: 20px;
