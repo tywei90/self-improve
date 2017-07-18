@@ -245,13 +245,19 @@ new Vue({
             'profile': './img/21.png',
             'href': 'https://gold.xitu.io/',
             'account': 'wty2368@163.com',
-            'password': 'me_S'
+            'password': 'me_6'
         }, {
             'name': 'google',
             'profile': './img/22.png',
             'href': 'https://www.google.com/',
             'account': 'tywei90@gmail.com',
             'password': 'me_N'
+        }, {
+            'name': '爱奇艺',
+            'profile': './img/23.png',
+            'href': 'http://www.iqiyi.com/',
+            'account': '15010580656',
+            'password': 'me_T'
         }]
     }
 })

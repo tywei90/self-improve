@@ -37,7 +37,19 @@ var MIN_INTERVAL = 10;
 var ENABLE_ADJUST = true; //在开售“期间”，INTERVAL始终为1，ENABLE_ADJUST=false
 var firstTime, timer1;
 var data_old = {object: [], string: []}; //获取的前50个数据
-var data_new = data.length !== 0 ? data.slice(-50) : {object: [], string: []}; //获取的后50个数据
+var data_new = {object: [], string: []}; //获取的前50个数据
+(function(){
+    if(data.length !== 0){
+       for (var i = 0, len = data.length; i < len; i++) {
+            var now = +new Date();
+            var arrID = data[i].payAmount.toString() + data[i].productId + data[i].username;
+            firstTime = data[data.length-1].time;
+            data_new.string.push(arrID);
+            //格式化后推入data中
+            data_new.object.push(data[i]);
+        } 
+    }
+})();
 var xmlhttp = new XMLHttpRequest();
 var url = 'https://www.lmlc.com/s/web/home/user_buying';
 
