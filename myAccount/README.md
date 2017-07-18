@@ -7,7 +7,7 @@
 ![密码修改地方](./img/readme1.png)
 3. 登录之后鼠标hover会显示账号和密码，因为纯前端网页，所以这里密码可以给出点提示即可
 4. 增加配置项，在main.js里，如下代码：  
-```json
+```js
 websites: [{
 	'name': '百度',
 	'profile': './img/8.png',
