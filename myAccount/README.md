@@ -4,10 +4,10 @@
 使用方法：  
 1. 直接打开main.html即可看到网页效果
 2. 登录密码在main.js代码的第五行，如图所示。修改‘2368’即可  
-!()[./img/readme1.png]
+![密码修改地方](./img/readme1.png)
 3. 登录之后鼠标hover会显示账号和密码，因为纯前端网页，所以这里密码可以给出点提示即可
 4. 增加配置项，在main.js里，如下代码：  
-```js
+```json
 websites: [{
 	'name': '百度',
 	'profile': './img/8.png',
