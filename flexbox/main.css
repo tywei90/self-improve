@@ -1,0 +1,149 @@
+body {
+    font-family: '微软雅黑';
+    /*font-family: cursive, '微软雅黑';*/
+    padding: 0;
+    margin: 20px 0 40px;
+    font-size: 16px;
+    background-color: #F9F9F9;
+}
+
+h1 {
+    color: #0BF;
+    text-indent: 15px;
+}
+
+h3 {
+    color: #6D7273;
+    text-indent: 15px;
+    padding: 10px 0;
+    background-color: #fff;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.boxes {
+    padding: 0 10px;
+    overflow: hidden;
+    display: -webkit-flex;
+    flex-wrap: wrap;
+    align-content: flex-start
+}
+
+.box {
+    width: 400px;
+    padding: 8px;
+    margin-right: 20px;
+    margin-bottom: 10px;
+    display: inline-block;
+    box-shadow: 2px 2px 3px 1px #E0E0E0;
+}
+
+.boxstyle {
+    padding: 8px 0;
+}
+
+.boxborder {
+    border: 1px dashed #B6B6B6;
+}
+
+.demo {
+    color: #fff;
+    display: -webkit-flex;
+    text-align: center;
+}
+
+.demo .item {
+    line-height: 40px;
+    background-color: #ddd;
+}
+
+.demo .item:nth-child(1) {
+    background-color: #E46C49;
+}
+
+.demo .item:nth-child(2) {
+    background-color: #37B0D3;
+}
+
+.demo .item:nth-child(3) {
+    background-color: #68B33D;
+}
+
+.demo .item:nth-child(4) {
+    background-color: #E46775;
+}
+
+.demo .item:nth-child(5) {
+    background-color: #CFC731;
+}
+
+.demo .item:nth-child(6) {
+    background-color: #8370F4;
+}
+
+.demo .item span {
+    display: block;
+}
+
+.demo2 .item {
+    height: 60px;
+    width: 150px;
+    word-wrap: break-word;
+    line-height: 1.5;
+}
+
+.demo-row {
+    flex-direction: row;
+}
+
+.demo-row-reverse {
+    flex-direction: row-reverse;
+}
+
+.demo-column {
+    height: 200px;
+    flex-direction: column;
+}
+
+.demo-column-reverse {
+    height: 200px;
+    flex-direction: column-reverse;
+}
+
+.demo-nowrap {
+    -webkit-flex-wrap: nowrap;
+    width: 400px;
+}
+
+.demo-wrap {
+    -webkit-flex-wrap: wrap;
+    width: 400px;
+}
+
+.demo-wrap-reverse {
+    -webkit-flex-wrap: wrap-reverse;
+    width: 400px;
+}
+
+.demo-align-content {
+    width: 400px;
+    flex-wrap: wrap;
+    height: 200px;
+    border: 1px dashed #B6B6B6;
+}
+
+.demo-align-content .item:nth-child(1),
+.demo-align-content .item:nth-child(2),
+.demo-align-content .item:nth-child(3),
+.demo-align-content .item:nth-child(4),
+.demo-align-content .item:nth-child(5),
+.demo-align-content .item:nth-child(6) {
+    background-color: #717171;
+    width: 80px;
+    margin: 2px 10px;
+}
