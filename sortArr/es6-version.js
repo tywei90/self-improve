@@ -1,18 +1,89 @@
+/*
+ * Flatten javascript objects into a single-depth object
+ * Object Flatten <https://gist.github.com/penguinboy/762197>
+ */
+function flattenObject(ob) {
+	var toReturn = {};
+	for (var i in ob) {
+		if (!ob.hasOwnProperty(i)) continue;
+		if ((typeof ob[i]) == 'object') {
+			var flatObject = flattenObject(ob[i]);
+			for (var x in flatObject) {
+				if (!flatObject.hasOwnProperty(x)) continue;
+				toReturn[i + '.' + x] = flatObject[x];
+			}
+		} else {
+			toReturn[i] = ob[i];
+		}
+	}
+	return toReturn;
+}
+
+// select matched value
+function selData(arr, asc) {
+	var sortFn;
+	if(typeof asc === 'function'){
+		sortFn = asc;
+	}else{
+		sortFn = function(a, b){
+			if(asc === false){
+				if(typeof a === 'string'){
+					return b.localeCompare(a)
+				}
+				if(typeof a === 'number'){
+					return b - a
+				}
+				return 0
+			}else{
+				if(typeof a === 'string'){
+					return a.localeCompare(b)
+				}
+				if(typeof a === 'number'){
+					return a - b
+				}
+				return 0
+			}
+		}
+	}
+	arr.sort(sortFn);
+	return arr[0]
+}
+
+// select array whose attribute matches
+function selObjArr(arr, attr, asc) {
+	var optData;
+	var tmpArr = [];
+	var outArr = [];
+	if(attr === undefined || arr.length === 0){
+		return [];
+	}
+	if(typeof attr !== "string"){
+		throw new TypeError('PARAM MUST BE STRING');
+	}
+	for(var i=0,len=arr.length; i<len; i++){
+		tmpArr.push(flattenObject(arr[i])[attr]);
+	}
+	optData = selData(tmpArr, asc);
+	for(var i=0,len=arr.length; i<len; i++){
+		if (flattenObject(arr[i])[attr] === optData) {
+			outArr.push(arr[i]);
+		}
+	}
+	return outArr
+}
+
 // delete array elements by index array
-function delByIndexArr(arr, indexArr) {
+function del(arr, indexArr) {
 	// check params
 	if(indexArr === undefined){
 		return arr
 	}
-	if(Object.prototype.toString.call(arr) !== "[object Array]"){
-		throw new Error('FIRST PARAM MUST BE ARRAY');
-	}
 	if(Object.prototype.toString.call(indexArr) !== "[object Array]"){
-		throw new Error('SECOND PARAM MUST BE ARRAY');
+		throw new TypeError('PARAM MUST BE ARRAY');
 	}
 	for(var i=0, len=indexArr.length; i < len; i++){
 		if(typeof indexArr[i] !== "number"){
-			throw new Error('THE ELEMENT OF SECOND PARAM MUST BE NUMBER');
+			throw new TypeError('PARAM MUST BE NUMBER ARRAY');
 		}
 		if(indexArr[i] < -indexArr.length){
 			indexArr[i] = 0;
@@ -31,7 +102,7 @@ function delByIndexArr(arr, indexArr) {
 			tmpArr.push(indexArr[i])
 		}
 	}
-	// should not change the value of arr
+	// should not change the value of input arr
 	var outArr = JSON.parse(JSON.stringify(arr));
 	if (arr.length === 0) {
 		return [];
@@ -42,82 +113,13 @@ function delByIndexArr(arr, indexArr) {
 	return outArr
 }
 
-// get array whose attribute has the min value
-function minObjArr(arr, sortType) {
-	if(sortType === undefined){
-		return [];
-	}
-	if(Object.prototype.toString.call(arr) !== "[object Array]"){
-		throw new Error('FIRST PARAM MUST BE ARRAY');
-	}
-	if(typeof sortType !== "string"){
-		throw new Error('SECOND PARAM MUST BE STRING');
-	}
-	var minData;
-	var tmpArr = [];
-	var outArr = [];
-	if (arr.length === 0) {
-		return [];
-	}
-	for(var i=0,len=arr.length; i<len; i++){
-		tmpArr.push(arr[i][sortType]);
-	}
-	minData = minNum(tmpArr);
-	for(var i=0,len=arr.length; i<len; i++){
-		if (arr[i][sortType] === minData) {
-			outArr.push(arr[i]);
-		}
-	}
-	return outArr
-	// select the min value of number array
-	function minNum(array) {
-		return Math.min.apply({}, array)
-	}
-}
-
-// get array whose attribute has the max value
-function maxObjArr(arr, sortType) {
-	if(sortType === undefined){
-		return [];
-	}
-	if(Object.prototype.toString.call(arr) !== "[object Array]"){
-		throw new Error('FIRST PARAM MUST BE ARRAY');
-	}
-	if(typeof sortType !== "string"){
-		throw new Error('SECOND PARAM MUST BE STRING');
-	}
-	var maxData;
-	var tmpArr = [];
-	var outArr = [];
-	if (arr.length === 0) {
-		return [];
-	}
-	for(var i=0,len=arr.length; i<len; i++){
-		tmpArr.push(arr[i][sortType]);
-	}
-	maxData = maxNum(tmpArr);
-	for(var i=0,len=arr.length; i<len; i++){
-		if (arr[i][sortType] === maxData) {
-			outArr.push(arr[i]);
-		}
-	}
-	return outArr
-	// select the min value of number array
-	function maxNum(array) {
-		return Math.max.apply({}, array)
-	}
-}
-
 // sort array by multiple conditions
-function multiSortArr(arr, sortLists) {
+function sort(arr, sortLists) {
 	if(sortLists === undefined){
 		return arr;
 	}
-	if(Object.prototype.toString.call(arr) !== "[object Array]"){
-		throw new Error('FIRST PARAM MUST BE ARRAY');
-	}
 	if(Object.prototype.toString.call(sortLists) !== "[object Array]"){
-		throw new Error('SECOND PARAM MUST BE ARRAY');
+		throw new TypeError('PARAM MUST BE ARRAY');
 	}
 	var i = 0;
 	var len = sortLists.length;
@@ -130,44 +132,40 @@ function multiSortArr(arr, sortLists) {
 		return inArr;
 	}
 	// the right method to use arguments.callee in strict mode
-	var sortArr = (function sortArrWrap(arr, sortList) {
-			if(Object.prototype.toString.call(sortList) !== "[object Object]"){
-				throw new Error('THE ELEMENT OF SECOND PARAM MUST BE OBJECT');
-			}
-			var filterArr = [];
-			if (arr.length === 0) {
-				return;
-			}
-			if (sortList.ascend === false) {
-				filterArr = maxObjArr(arr, sortList.attr || '');
-			} else {
-				filterArr = minObjArr(arr, sortList.attr || '');
-			}
-			if(filterArr.length === 0){
-				filterArr = arr;
-			}
-			if (filterArr.length === 1 || i >= len - 1) {
-				outArr = outArr.concat(filterArr);
-				// delete the corresponding original array element
-				for(var k=0,len1=filterArr.length; k<len1; k++){
-					// update stringifyInArr in case same elemets cause error deletion
-					var stringifyInArr = [];
-					for(var j=0,len2=inArr.length; j<len2; j++){
-						stringifyInArr.push(JSON.stringify(inArr[j]));
-					}
-					var delIndex = stringifyInArr.indexOf(JSON.stringify(filterArr[k]));
-					if (delIndex !== -1) {
-						inArr = delByIndexArr(inArr, [delIndex]);
-					}
+	var sortArrOuter = (function sortArrWrap(arr, sortList) {
+		if(Object.prototype.toString.call(sortList) !== "[object Object]"){
+			throw new TypeError('PARAM MUST BE OBJECT ARRAY');
+		}
+		var filterArr = [];
+		if (arr.length === 0) {
+			return;
+		}
+		filterArr = selObjArr(arr, sortList.attr || '', sortList.asc);
+		if(filterArr.length === 0){
+			filterArr = arr;
+		}
+		if (filterArr.length === 1 || i >= len - 1) {
+			outArr = outArr.concat(filterArr);
+			// delete the corresponding original array element
+			for(var k=0,len1=filterArr.length; k<len1; k++){
+				// update stringifyInArr in case same elemets cause error deletion
+				var stringifyInArr = [];
+				for(var j=0,len2=inArr.length; j<len2; j++){
+					stringifyInArr.push(JSON.stringify(inArr[j]));
 				}
-			} else {
-				i++;
-				sortArrWrap(filterArr, sortLists[i])
+				var delIndex = stringifyInArr.indexOf(JSON.stringify(filterArr[k]));
+				if (delIndex !== -1) {
+					inArr = del(inArr, [delIndex]);
+				}
 			}
-		})
+		} else {
+			i++;
+			sortArrWrap(filterArr, sortLists[i])
+		}
+	})
 	var loopSortArr = (function loopSortArrWrap() {
 		i = 0;
-		sortArr(inArr, sortLists[0]);
+		sortArrOuter(inArr, sortLists[0]);
 		if (inArr.length === 0) {
 			return
 		}
@@ -177,4 +175,4 @@ function multiSortArr(arr, sortLists) {
 	return outArr;
 }
 
-export default { delByIndexArr, minObjArr, maxObjArr, multiSortArr }
+export default { del, sort }
